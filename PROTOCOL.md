@@ -1,86 +1,404 @@
-# Experiment 01 — MSA depth as a confound in pLM scaling
+# PROTOCOL
 
-Written before the analysis, amended after. Amendments are marked and the
-original wording is left intact.
+Every experiment in this repository begins with a written protocol.
 
-## Question
+The protocol is completed **before any analysis is run**.
 
-Do reported ESM-2 scaling gains on zero-shot variant effect prediction
-survive a control for how well sampled the protein's family is?
+Its purpose is to separate prediction from interpretation.
 
-## Original prediction
+If an experiment changes direction after results are known, the protocol should be updated only in a new commit with an explicit explanation.
 
-Scaling gains concentrate in high-MSA-depth families. Under depth control the
-scaling curve flattens.
+---
 
-## Status: prediction failed, different effect found
+# Scientific Principles
 
-**Amendment, pilot run.** The prediction is not supported. Across the full
-8M-to-15B ladder the gain is roughly constant across depth strata
-(Low +0.197, Medium +0.242, High +0.197 mean Spearman) and the size x depth
-interaction is null (beta = -0.006, p = 0.30).
+Experiments should be
 
-The effect is real but lives in the upper half of the ladder. Restricting to
-650M and above, the interaction is significant (beta = -0.015, p = 0.002)
-while the main effect of size is not distinguishable from zero
-(beta = -0.010, p = 0.11). Paired per assay:
+- reproducible
+- falsifiable
+- minimal
+- auditable
 
-| MSA depth | mean 15B − 650M | assays where 15B wins |
-|---|---|---|
-| Low | +0.009 | 61% |
-| Medium | +0.007 | 49% |
-| High | −0.054 | 35% |
+The goal is not to confirm expectations.
 
-**Revised claim.** Past 650M, scaling ESM-2 degrades performance on
-well-sampled families and helps marginally on poorly-sampled ones. The
-aggregate number hides a sign flip. Reporting a single mean Spearman across
-ProteinGym conceals that the largest model is the worse choice for most
-assays in the benchmark.
+The goal is to reduce uncertainty.
 
-The SaProt paper noted in passing that ESM-2 15B fails to beat 650M. This
-locates where and by how much.
+---
 
-## Data
+# Experiment Lifecycle
 
-- ProteinGym per-assay zero-shot Spearman, DMS substitutions, 217 assays.
-- ProteinGym reference file for `MSA_Neff_L` (continuous) and
-  `MSA_Neff_L_category` (Low 36 / Medium 109 / High 72).
-- Both pulled from the ProteinGym repo at run time. Nothing is vendored.
+Every experiment follows the same sequence.
 
-## Method
+```
+Question
+    ↓
+Background
+    ↓
+Hypothesis
+    ↓
+Prediction
+    ↓
+Experimental Design
+    ↓
+Stopping Criterion
+    ↓
+Run Analysis
+    ↓
+Interpret Results
+    ↓
+Update Documentation
+```
 
-OLS of Spearman on centred log10 parameters, centred log10 Neff/L, and their
-interaction. Standard errors clustered by `UniProt_ID`, since several assays
-share a protein. Paired per-assay differences reported separately because
-means hide direction.
+Interpretation never occurs before the analysis has completed.
 
-## Kill criteria
+---
 
-- Interaction null in both the full ladder and the upper segment → confound
-  story is wrong for this task, stop. **Not triggered.**
-- Effect disappears once `taxon`, `seq_len`, and `selection_type` are added →
-  the pattern is a composition artefact, not a depth effect. **Not yet run.**
-- Pattern absent on the ProGen2 ladder → ESM-specific, much weaker claim.
-  **Not yet run.**
+# Experiment Template
 
-## What is not yet established
+Every experiment directory contains a `PROTOCOL.md`.
 
-The pilot is a pattern, not a result. MSA depth is not randomly assigned:
-deep families skew toward well-studied human and viral proteins with
-particular assay types. Before this is publishable it needs the covariate
-controls, the ProGen2 replication, and a check on whether ProteinGym's own
-scoring protocol treats the large models fairly (context truncation, batching
-differences).
+---
 
-ProteinGym already reports mean performance binned by MSA depth. The novel
-part here is treating depth as continuous, fitting the interaction with size,
-and finding the sign flip in the upper segment. Do not re-report their table
-and call it a finding.
+## Title
 
-## Next
+A concise description of the experiment.
 
-1. Add covariates. Does the upper-segment interaction survive?
-2. Replicate on ProGen2 S/M/L/XL. Confirm parameter counts first — Base and M
-   differ by training corpus, not size, so one must be dropped.
-3. Only then run models yourself (notebook 01b), to extend the ladder to
-   models ProteinGym has not scored.
+Example
+
+```
+Experiment 01
+
+MSA Depth and Reported ESM-2 Scaling
+```
+
+---
+
+## Motivation
+
+Why is the question interesting?
+
+What published claim is being examined?
+
+What uncertainty exists?
+
+---
+
+## Research Question
+
+A single sentence.
+
+Example
+
+```
+Does MSA depth explain the reported scaling behaviour of ESM-2?
+```
+
+---
+
+## Background
+
+Summarize the relevant literature.
+
+Each statement should carry a provenance tag.
+
+Example
+
+```
+Scaling improves with model size. [author]
+
+MSA depth may influence evaluation. [community]
+```
+
+---
+
+## Hypothesis
+
+A testable statement.
+
+Example
+
+```
+MSA depth explains a substantial fraction of the apparent scaling trend.
+```
+
+---
+
+## Prediction
+
+A concrete observable outcome.
+
+Example
+
+```
+After controlling for MSA depth,
+the model-size effect should shrink substantially.
+```
+
+Predictions should be quantitative whenever possible.
+
+---
+
+## Null Hypothesis
+
+Explicitly state the alternative.
+
+Example
+
+```
+MSA depth does not explain the reported scaling trend.
+```
+
+---
+
+## Variables
+
+Independent variables
+
+Dependent variables
+
+Control variables
+
+Confounders
+
+Example
+
+```
+Independent
+
+Model size
+
+MSA depth
+
+Dependent
+
+Reported performance
+
+Controls
+
+Assay
+
+Protein family
+```
+
+---
+
+## Dataset
+
+Describe
+
+- source
+- version
+- commit SHA
+- download date
+
+Never rely on
+
+```
+main
+```
+
+for external repositories.
+
+Pin everything.
+
+---
+
+## Experimental Design
+
+Describe
+
+- preprocessing
+- filtering
+- exclusions
+- statistical model
+- evaluation procedure
+
+Someone unfamiliar with the project should be able to reproduce the experiment.
+
+---
+
+## Expected Failure Modes
+
+Examples
+
+- missing data
+
+- duplicated proteins
+
+- inconsistent annotations
+
+- dataset leakage
+
+- confounding
+
+Write these before running the experiment.
+
+---
+
+## Stopping Criterion
+
+The experiment ends when
+
+- hypothesis supported
+
+or
+
+- hypothesis contradicted
+
+or
+
+- assumptions violated
+
+Avoid "collect more data until something becomes significant."
+
+---
+
+## Output Files
+
+Specify expected outputs.
+
+Example
+
+```
+results/
+
+figures/
+
+logs/
+
+provenance.json
+```
+
+---
+
+## Documentation Impact
+
+List every document that may require updating.
+
+Example
+
+```
+models/esm2.md
+
+models.csv
+
+README.md
+```
+
+---
+
+## Reproducibility Checklist
+
+Before analysis begins
+
+- [ ] Protocol committed
+
+- [ ] Dataset pinned
+
+- [ ] Dependencies installed
+
+- [ ] Random seed fixed
+
+- [ ] Output directory created
+
+- [ ] Provenance enabled
+
+---
+
+# After the Experiment
+
+The following sections remain empty until analysis is complete.
+
+---
+
+## Results
+
+Summarize
+
+- numerical findings
+
+- figures
+
+- statistical significance
+
+No discussion yet.
+
+---
+
+## Interpretation
+
+Did the prediction survive?
+
+Was the hypothesis supported?
+
+Were assumptions violated?
+
+---
+
+## Documentation Changes
+
+Record every documentation update.
+
+Example
+
+```
+esm2.md
+
+Changed
+
+"Scaling improves uniformly."
+
+↓
+
+"Scaling improvement weakens after controlling for MSA depth."
+```
+
+---
+
+## Lessons Learned
+
+Document
+
+- mistakes
+
+- unexpected observations
+
+- future experiments
+
+---
+
+# Provenance
+
+Every experiment records
+
+- Git commit
+
+- experiment ID
+
+- timestamp
+
+- dataset commit SHA
+
+- software versions
+
+- operating system
+
+- Python version
+
+- package versions
+
+- random seed
+
+The provenance record should be machine-readable.
+
+---
+
+# Repository Philosophy
+
+Experiments are primary.
+
+Documentation is secondary.
+
+Documentation changes because experiments produce evidence.
+
+Evidence never changes because documentation expected it.
