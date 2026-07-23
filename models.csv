@@ -1,0 +1,8 @@
+model,year,org,modality,params_headline,open_weights,license_propagates,seq_input,structure_input,function_input,generative,zero_shot_vep,structure_pred,design_validated_wetlab,primary_eval,note_file
+ProtT5,2021,RostLab/TU Munich,sequence,3B,yes,no,yes,no,no,weak,no,no,no,secondary structure + localization,models/prott5.md
+ProGen,2020,Salesforce,sequence+tags,1.2B,yes,no,yes,no,tags,yes,via ProGen2,no,yes,family-conditional generation,models/progen.md
+ESM-2,2022,Meta AI,sequence,650M,yes,no,yes,no,no,no,yes,via ESMFold,no,contacts + CAMEO + DMS,models/esm2.md
+GearNet,2023,MILA,structure graph,20M,yes,unverified,no,yes,no,no,no,no,no,EC/GO Fmax + fold classification,models/gearnet.md
+SaProt,2024,Westlake,sequence+3Di,650M,yes,unverified,yes,yes,no,no,yes,no,no,ProteinGym + ClinVar + EC/GO,models/saprot.md
+ESM-3,2024,EvolutionaryScale,seq+struct+function,98B,partial (1.4B only),yes,yes,yes,yes,yes,yes,yes,yes,multi-track NLL + CAMEO + esmGFP,models/esm3.md
+Evo 2,2025,Arc Institute,DNA,40B,yes,unverified,indirect,no,no,yes,yes,no,no,ClinVar/BRCA1 AUROC + generation,models/evo2.md
