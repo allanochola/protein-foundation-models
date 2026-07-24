@@ -26,7 +26,7 @@ ESMFold sits on top: the frozen ESM-2 trunk feeds a folding head trained on PDB 
 ## When not to use it
 
 - **Orphan proteins and shallow families.** Performance tracks family depth despite the MSA-free framing.
-- **The 15B model.** On ProteinGym substitutions it loses to 650M on 65% of high-depth assays (mean −0.054 Spearman). Use 650M unless you have a specific reason. See [experiment 01](../experiments/01-msa-depth-confound/PROTOCOL.md).
+- **The 15B model.** On ProteinGym substitutions it loses to 650M on 65% of high-depth assays (mean −0.054 Spearman). Use 650M unless you have a specific reason. Survives assay fixed effects (beta=-0.015, p=0.011), so it is not a composition artefact. See [experiment 01](../experiments/01-msa-depth-confound/PROTOCOL.md).
 - **Accuracy-critical structure prediction on low-homology targets**, if you can afford AlphaFold2. ESMFold buys speed, not accuracy.
 - **Controllable generation.** It is a scorer, not a design tool.
 
@@ -36,6 +36,6 @@ Perplexity on held-out UniRef; long-range contact precision at P@L, P@L/2, P@L/5
 
 ## Ideas
 
-- ~~Regress every reported ESM-2 win against MSA depth. Prediction: the scaling curve flattens.~~ **Run, prediction wrong.** Gains are constant across depth strata over the full ladder. The real effect is in the upper segment: past 650M, larger models lose to 650M on 65% of high-depth assays while marginally winning on low-depth ones. See [experiment 01](../experiments/01-msa-depth-confound/PROTOCOL.md).
+- ~~Regress every reported ESM-2 win against MSA depth. Prediction: the scaling curve flattens.~~ **Run, prediction wrong.** Gains are constant across depth strata over the full ladder. The real effect is in the upper segment: past 650M, larger models lose to 650M on 65% of high-depth assays while marginally winning on low-depth ones. Survives assay fixed effects (beta=-0.015, p=0.011), so it is not a composition artefact. See [experiment 01](../experiments/01-msa-depth-confound/PROTOCOL.md).
 - Build a strict-holdout benchmark using structural rather than sequence-identity splits (fold-level holdout via Foldseek clustering) and re-rank the ladder.
 - Test whether pseudo-likelihood variant scores degrade differently for gain-of-function versus loss-of-function mutations. Most DMS assays are loss-biased, which would make the benchmark blind to exactly the direction that matters for risk assessment.

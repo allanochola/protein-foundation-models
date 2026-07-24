@@ -1,0 +1,59 @@
+experiment: 01
+title: MSA depth as a confound in pLM scaling
+status: 01a complete, 01b complete, 01c preregistered
+data:
+  source: ProteinGym
+  commit: 144fe22b07dfaeec2b366f2346203a9838a55b4c
+  files:
+    - benchmarks/DMS_zero_shot/substitutions/Spearman/DMS_substitutions_Spearman_DMS_level.csv
+    - reference_files/DMS_substitutions.csv
+  assays: 217
+  merge_level: assay          # never depth-bin averages
+covariates:
+  taxon: [Human, Eukaryote, Prokaryote, Virus]   # ProteinGym's own grouping
+  selection_type: coarse_selection_type          # 5 levels, not the 36-level raw field
+  seq_len: log10, standardized
+
+# Explicit hierarchy. The fixed-effects model is a robustness reference, not
+# the headline; it was not designated primary in advance.
+primary_analysis:
+  specification: covariate-adjusted, cluster SE by UniProt_ID
+  formula: rho ~ lp*ld + lp*taxon + lp*z_llen + lp*sel
+  beta: -0.01721
+  p: 0.0104
+  ci: [-0.03038, -0.00405]
+
+robustness_reference:
+  specification: assay fixed effects, cluster SE by UniProt_ID
+  formula: rho ~ lp + lp:ld + C(assay)
+  beta: -0.01528
+  p: 0.0106
+  ci: [-0.02699, -0.00356]
+
+post_hoc:
+  bootstrap_assay_cluster:
+    sampling_unit: assay          # complete clusters, never individual rows
+    sampling: with replacement, 217 assays per replicate
+    rows_retained: all three model-size observations per sampled assay
+    refit: primary covariate-adjusted specification
+    reps: 2000
+    failed_fits: 0
+    median_beta: -0.0174
+    percentile_95: [-0.0300, -0.0060]
+    replicates_negative: 1997      # of 2000
+  by_selection_class:
+    pooling: DerSimonian-Laird random effects
+    pooled_beta: -0.0137
+    ci: [-0.0250, -0.0023]
+    Q: 2.10
+    df: 4
+    I2_pct: 0.0
+    reading: no detectable heterogeneity; leave-one-class-out sensitivity is precision loss
+  pairwise_contrasts:
+    650M_to_3B:  {beta: -0.0205, p: 0.0292}
+    3B_to_15B:   {beta: -0.0142, p: 0.0706}
+    650M_to_15B: {beta: -0.0172, p: 0.0109}
+
+overall_verdict: partial survival
+fragility: significance lost under HC3, drop-OrganismalFitness, drop-Human, and Cook's D exclusion
+compute: CPU, under two minutes
