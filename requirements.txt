@@ -1,0 +1,20 @@
+# Analysis (notebook 01a) — CPU only.
+# Floors, not exact pins, on packages Colab preinstalls: forcing `==` on
+# numpy/pandas triggers a dependency resolve and a kernel restart in Colab,
+# which costs more reproducibility than it buys. The analysis-critical
+# package is pinned.
+pandas>=2.0
+numpy>=1.24
+scipy>=1.11
+statsmodels==0.14.6
+matplotlib>=3.7
+
+# Model scoring (notebook 01b) — GPU runtime.
+# Colab preinstalls torch; do not pin it or you trigger a rebuild.
+transformers>=4.40
+fair-esm>=2.0.0
+biopython>=1.81
+
+# Notebooks are canonical as .py. jupytext generates the .ipynb, which is
+# gitignored. No nbstripout: it can never run on files git ignores.
+jupytext>=1.16

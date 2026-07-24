@@ -1,0 +1,28 @@
+# Data is downloaded, never committed. See notebooks for source URLs.
+data/
+*.pt
+*.ckpt
+*.h5
+*.a3m
+*.fasta
+
+# Notebooks are versioned as .py via jupytext; .ipynb is a build artefact
+*.ipynb
+.ipynb_checkpoints/
+
+__pycache__/
+.venv/
+.DS_Store
+~$*
+
+# Credentials — never commit. Colab Secrets holds the PAT.
+.env
+*.key
+credentials.json
+token.json
+
+# Uploaded archives
+*.zip
+
+# Uploaded archives
+*.zip

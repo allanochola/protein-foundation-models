@@ -1,245 +1,78 @@
-# Protein Foundation Models
+# Protein Foundation Models — Reading Notes
 
-A living, experiment-driven knowledge base for protein and biological foundation models.
+Structured notes on protein and biological sequence foundation models, and the experiments they generate. Every entry answers the same questions so models stay comparable across architectures, modalities, and training scales.
 
-This repository is built around a simple principle:
+Model files use these headings, in this order:
 
-> Literature should not be static. Experiments should continuously revise what the literature notes claim.
+1. **Trained on** — corpus, size, objective, parameter count
+2. **Does well** — tasks with reported wins, and what the win actually shows
+3. **Limitations** — what the paper does not establish
+4. **When not to use it** — concrete negative constraints
+5. **Evaluated by** — benchmarks, metrics, splits, baselines
+6. **Ideas** — follow-on experiments, each with a status
 
-Rather than treating model summaries and experiments as separate projects, every experiment feeds back into the documentation. A successful replication increases confidence in a claim. A failed replication corrects or narrows the claim. Documentation and experiments therefore evolve together.
+Heading 6 is the point of the exercise, and heading 4 is the part readers use most. Notes that stop at heading 5 are summaries; notes that reach heading 6 and link results back are a research agenda. See [experiment 01](experiments/01-msa-depth-confound/PROTOCOL.md) for the loop working: an idea from `esm2.md` was run, the prediction failed, and the note was corrected.
 
----
+## Index
 
-# Goals
+| Model | Year | Modality | Params | Pretraining corpus | Generative |
+|---|---|---|---|---|---|
+| [ProtT5](models/prott5.md) | 2021 | Sequence | 3B (XL-U50) | BFD (2.1B seqs) → UniRef50 | Weak (span infill) |
+| [ProGen](models/progen.md) | 2020 / 2023 | Sequence + tags | 1.2B | ~280M seqs, >19k families | Yes |
+| [ESM-2](models/esm2.md) | 2022 | Sequence | 8M – 15B | UniRef50/90, ~65M seqs | No (MLM) |
+| [GearNet](models/gearnet.md) | 2023 | Structure graph | ~20M | 805K AlphaFold DB structures | No |
+| [SaProt](models/saprot.md) | 2024 | Sequence + 3Di tokens | 650M | ~40M seqs + AFDB structures | No (MLM) |
+| [ESM-3](models/esm3.md) | 2024 / 2025 | Seq + struct + function | 1.4B / 7B / 98B | 2.78B proteins, 771B tokens | Yes |
+| [Evo 2](models/evo2.md) | 2025 / 2026 | DNA (nucleotide) | 7B / 40B | 9.3T nt, >128k genomes | Yes |
 
-1. Build structured notes on major protein foundation models.
-2. Compare models using reproducible experiments.
-3. Distinguish published claims from independently reproduced findings.
-4. Produce reusable Colab experiments.
-5. Maintain an auditable history showing why every documentation change occurred.
+Machine-readable version: [models.csv](models.csv).
 
----
+## Cross-cutting notes
 
-# Repository Structure
+- [Lineage of the reading set](docs/lineage.md) — who inherited what, and which comparisons are controlled.
+- [Evaluation weaknesses shared across the field](evaluation-notes.md) — homology leakage, MSA-depth confounds, and why benchmark wins keep failing to transfer.
 
-```
-protein-foundation-models/
-│
-├── README.md
-├── SETUP.md
-├── PROTOCOL.md
-├── requirements.txt
-├── models.csv
-├── third-party-licenses.md
-│
-├── models/
-│
-├── experiments/
-│
-├── notebooks/
-│
-├── results/
-│
-├── figures/
-│
-└── src/
-```
+## Scope and safety
 
----
+This repository evaluates general capabilities of public protein and genomic
+foundation models using published benchmark data. It contains no experimental
+protocols, no wet-lab methods, and no work directed at optimizing biological
+agents. Where a model's dual-use profile is discussed — see
+[evo2.md](models/evo2.md) — the aim is testing whether stated safety
+mitigations do what they claim.
 
-# Models Covered
+Model weights carry their own licenses, some of which propagate into
+derivative work. See [docs/third-party-licenses.md](docs/third-party-licenses.md)
+before adding a model.
 
-Current scope:
+## Comparability
 
-- ESM-2
-- ESM-3
-- ProtT5
-- ProGen
-- Evo 2
-- SaProt
-- GearNet
+These models do not sit on one axis, and the index table above should not be
+read as a leaderboard. ESM-2, ProtT5 and SaProt are representation models;
+ESM-3 and ProGen also generate; GearNet is a graph encoder requiring
+structures; Evo 2 models DNA at nucleotide resolution.
 
-Each model note follows the same template.
+They do overlap on one task. Zero-shot variant effect prediction is scored
+natively for ESM-2, SaProt, ProGen2 and Evo 2 on the same assays, which makes
+it the only place a cross-modality number means anything. Everything else is
+model-specific and reported as such.
 
-- Overview
-- What it was trained on
-- Tasks it performs well
-- Limitations
-- Evaluation
-- When not to use it
-- Ideas
-- References
+## Project phases
 
----
+1. **Model survey** — what each model was trained on, what it does, where it breaks. This is the current phase.
+2. **Unified benchmarking** — run the models on shared tasks with corrected splits. ProteinBench and PFMBench are the starting points; neither controls for homology leakage, which is the gap.
+3. **Research contribution** — an evaluation method that separates capability from coverage. See [evaluation-notes.md](evaluation-notes.md).
 
-# Provenance Tags
+## Conventions
 
-Every factual claim should be tagged.
+- **Filenames are slugs, not numbers.** Ordering lives in the index table above. Numbered prefixes force a renumber every time a model is inserted, which breaks links and shared permalinks.
+- **No ordinal performance labels.** "Excellent" and "moderate" cannot be contested. Every performance claim carries a metric, a benchmark, a split, and a baseline, or it is marked "not reported."
+- **Limitations separate acknowledged from unaddressed.** The unaddressed ones are where the research questions live.
+- **Every entry ends in Ideas, and every idea carries a status** — `[open]`, `[running]`, `[done]` with a link. Ideas that never get linked to whether they ran are how notes go stale.
+- **"When not to use it" is required.** Negative constraints are more decision-useful than strengths and easier to falsify.
+- **Tag claim provenance** — `[author]`, `[repro]`, `[community]`. An unreproduced result must not read like a confirmed one.
+- Full citations in [references.bib](references.bib). Entry format in [template.md](template.md).
 
-| Tag | Meaning |
-|------|----------|
-| **[author]** | Reported by the original authors |
-| **[repro]** | Independently reproduced |
-| **[community]** | Community observation |
+## Reading order
 
-Example
-
-```
-Zero-shot mutation prediction performs well. [author]
-
-Replicated on ProteinGym. [repro]
-
-Several users report instability on long proteins. [community]
-```
-
----
-
-# Idea Status
-
-Ideas are tracked as experiments rather than brainstorming.
-
-| Status | Meaning |
-|---------|---------|
-| **[open]** | Not started |
-| **[running]** | Active experiment |
-| **[done]** | Completed |
-
-Completed ideas always link to the experiment that resolved them.
-
-Example
-
-```
-[done]
-
-Experiment 01
-
-Prediction contradicted.
-
-See:
-experiments/01-msa-depth-confound/
-```
-
----
-
-# Experimental Philosophy
-
-Every experiment begins with a protocol.
-
-The protocol contains
-
-- question
-- hypothesis
-- prediction
-- stopping criterion
-- analysis plan
-
-before any analysis is run.
-
-Results are interpreted only after the protocol has been fixed.
-
----
-
-# Current Experiments
-
-## Experiment 01
-
-Question
-
-Does MSA depth explain the reported scaling behaviour of ESM-2?
-
-Outcome
-
-The interaction was statistically significant but opposite to the original prediction.
-
-This resulted in corrections to the ESM-2 documentation.
-
----
-
-# Reproducibility
-
-The repository follows one workflow.
-
-```
-GitHub
-    ↓
-
-Google Colab
-
-    ↓
-
-Experiment
-
-    ↓
-
-Results
-
-    ↓
-
-Documentation update
-
-    ↓
-
-Git commit
-```
-
-GitHub is the permanent record.
-
-Colab is temporary compute.
-
----
-
-# Canonical Files
-
-The canonical experiment files are Python scripts.
-
-Interactive notebooks are generated from them using Jupytext when needed.
-
-```
-.py
-↓
-
-.ipynb
-```
-
-The Python files are the source of truth.
-
----
-
-# Large Files
-
-The repository intentionally excludes
-
-- model checkpoints
-- cached embeddings
-- temporary notebooks
-- downloaded datasets
-
-Experiments should be reproducible from scripts rather than stored artifacts.
-
----
-
-# Citation
-
-If you use this repository in academic work, please cite the specific GitHub release corresponding to the experiments you relied upon.
-
----
-
-# License
-
-Repository code is released under the MIT License.
-
-Individual models retain their own licenses.
-
-See `third-party-licenses.md`.
-
----
-
-# Roadmap
-
-- [x] Structured model notes
-- [x] Experiment-driven documentation
-- [x] Experiment 01
-- [ ] Experiment 02 – Frozen embedding comparison
-- [ ] Experiment 03 – Structure-aware models
-- [ ] Experiment 04 – Generative protein models
-- [ ] Experiment 05 – Robustness and out-of-distribution evaluation
+Start with ProtT5 and ESM-2 to fix the sequence-only baseline. Add GearNet next as the control: structure supervision with no language modeling, 100× less data, comparable function prediction. Then read SaProt and ESM-3 as two different answers to "add structure." Finish with ProGen and Evo 2, which move from representation to generation and change what evaluation has to prove.

@@ -1,0 +1,17 @@
+{
+  "experiment": "01a_msa_depth",
+  "utc": "2026-07-23T19:37:58+00:00",
+  "git_commit": "unknown",
+  "python": "3.12.3",
+  "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
+  "device": "cpu (torch not installed)",
+  "seed": 0,
+  "packages": {
+    "pandas": "3.0.2",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1",
+    "statsmodels": "0.14.6",
+    "transformers": "absent"
+  },
+  "proteingym_commit": "144fe22b07dfaeec2b366f2346203a9838a55b4c"
+}
