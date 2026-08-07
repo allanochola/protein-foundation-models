@@ -160,10 +160,11 @@ classes and wide individual intervals, the heterogeneity test is weakly
 powered, so this narrows that question rather than settling it.
 
 The bootstrap and the leave-out checks disagree, and the disagreement is
-informative rather than contradictory. The bootstrap asks whether the
-estimate is stable under sampling variability — it is, strongly. Leave-one-
-category-out asks whether it depends on a particular subpopulation — it does.
-Both hold simultaneously.
+informative rather than contradictory. The bootstrap shows the estimated sign
+is stable under assay-level resampling **of this benchmark**. The
+leave-category-out checks show its magnitude and uncertainty remain sensitive
+to benchmark composition. Neither addresses model misspecification, scoring-
+protocol effects, or assay populations absent from ProteinGym.
 
 ## Artefacts
 

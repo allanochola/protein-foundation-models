@@ -94,17 +94,23 @@ Every experiment starts with a protocol containing the question, prediction, ana
 
 ## Current experiments
 
-### [Experiment 01 — MSA depth as a confound in pLM scaling](experiments/01-msa-depth-confound/PROTOCOL.md)
+### [Experiment 01 — MSA depth and reported pLM scaling](experiments/01-msa-depth-confound/)
 
-**Question.** Do reported ESM-2 scaling gains on zero-shot variant effect prediction survive a control for how well sampled the protein's family is?
+**Question.** Do reported ESM-2 scaling gains on zero-shot variant-effect prediction depend on how well sampled the protein family is?
 
-**Status: pilot complete, kill criteria outstanding.**
+**Status: 01a complete, 01b complete, 01c preregistered.**
 
-The original prediction failed. Across the full 8M–15B ladder the size × depth interaction is null (p = 0.30) — scaling helps roughly equally regardless of family depth. The effect lives in the upper segment: from 650M up the interaction is significant (β = −0.015, p = 0.002) while the main effect of size is not (p = 0.11). Paired per assay, 15B beats 650M on 61% of low-depth assays but only 35% of high-depth ones.
+Across the full 8M–15B ESM-2 ladder the model-size × MSA-depth interaction is null. Above 650M, scaling gains are negatively associated with MSA depth. The original prediction — that gains would concentrate in deep families across the whole ladder — failed, and `models/esm2.md` carries the correction.
 
-Past 650M, scaling ESM-2 degrades performance on well-sampled families and helps marginally on poorly-sampled ones. A single mean Spearman across ProteinGym hides that sign flip.
+01b partially supports the upper-segment result. The adjusted interaction stays negative across all 14 specifications, survives measured covariate adjustment and assay fixed effects, and is negative in 1,997 of 2,000 assay-level bootstrap replicates.
 
-Not yet a result. The covariate controls and the ProGen2 replication are still to run.
+It is not produced solely by the 15B endpoint. The 650M-to-3B contrast is negative and excludes zero (β = −0.0205, 95% CI [−0.0388, −0.0021]); the 3B-to-15B contrast has the same direction but is inconclusive (β = −0.0142, 95% CI [−0.0296, +0.0012]).
+
+The effect remains sensitive to influential observations and to benchmark composition. Removing OrganismalFitness assays or the 6.6% of observations flagged by Cook's distance substantially weakens statistical certainty, though the five selection classes are homogeneous (I² = 0%), which points to precision loss rather than heterogeneous effects. The evidence supports a benchmark-specific depth-dependent pattern in published ESM-2 scores — not a general protein-language-model scaling law.
+
+Full write-up: [results.md](experiments/01-msa-depth-confound/results.md) · protocol and amendments: [PROTOCOL.md](experiments/01-msa-depth-confound/PROTOCOL.md)
+
+Next: the preregistered [ProGen2 replication](experiments/01c-progen2-replication/PROTOCOL.md), committed before any 01c code exists.
 
 ## Reproducibility
 
@@ -135,8 +141,8 @@ This repository evaluates general capabilities of public protein and genomic fou
 - [x] Structured model notes
 - [x] Experiment-driven documentation loop
 - [x] Experiment 01a — published-score analysis
-- [ ] Experiment 01b — covariate controls (taxon, length, selection type)
-- [ ] Experiment 01c — ProGen2 ladder replication
+- [x] Experiment 01b — covariate controls, robustness battery, post hoc diagnostics
+- [ ] Experiment 01c — ProGen2 ladder replication (preregistered)
 - [ ] Experiment 02 — structure-aware models under pLDDT stratification
 - [ ] Experiment 03 — generative model scoring
 - [ ] Experiment 04 — robustness and out-of-distribution evaluation
