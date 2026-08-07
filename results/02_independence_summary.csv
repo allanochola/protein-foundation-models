@@ -1,0 +1,6 @@
+threshold,assays,independent_clusters,median_assays_per_cluster,largest_cluster_pct
+protein_identity_uniprot,217,186,1.0,1.8
+90pct_identity,217,184,1.0,1.8
+70pct_identity,217,179,1.0,1.8
+50pct_identity,217,178,1.0,1.8
+30pct_identity,217,172,1.0,1.8

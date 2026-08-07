@@ -142,9 +142,10 @@ This repository evaluates general capabilities of public protein and genomic fou
 - [x] Experiment-driven documentation loop
 - [x] Experiment 01a — published-score analysis
 - [x] Experiment 01b — covariate controls, robustness battery, post hoc diagnostics
-- [ ] Experiment 01c — ProGen2 ladder replication (preregistered)
-- [ ] Experiment 02 — structure-aware models under pLDDT stratification
-- [ ] Experiment 03 — generative model scoring
+- [x] Experiment 01c — ProGen2 + ProGen3 replication
+- [x] Experiment 02 — ProteinGym family-independence audit (217 assays -> 178 independent sequences at 50%)
+- [ ] Experiment 03 — cross-family study (warranted by 02) or structure-aware pLDDT stratification
+- [ ] Experiment 04 — generative model scoring
 - [ ] Experiment 04 — robustness and out-of-distribution evaluation
 
 ## Citation
