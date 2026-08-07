@@ -1,0 +1,36 @@
+{
+  "experiment": "01c_dataset",
+  "utc": "2026-08-07T03:24:46+00:00",
+  "git_commit": "fb544e2",
+  "python": "3.12.3",
+  "platform": "Linux-6.18.5-fc-v18-x86_64-with-glibc2.39",
+  "device": "cpu (torch not installed)",
+  "seed": 0,
+  "packages": {
+    "pandas": "3.0.2",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1",
+    "statsmodels": "absent",
+    "transformers": "absent"
+  },
+  "proteingym_commit": "144fe22b07dfaeec2b366f2346203a9838a55b4c",
+  "ladders": {
+    "progen2": [
+      151000000.0,
+      764000000.0,
+      2700000000.0,
+      6400000000.0
+    ],
+    "progen3": [
+      112000000.0,
+      219000000.0,
+      339000000.0,
+      762000000.0,
+      1000000000.0,
+      3000000000.0
+    ]
+  },
+  "dropped": [
+    "Progen2 Base (duplicate parameter count with Progen2 M)"
+  ]
+}

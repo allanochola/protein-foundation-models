@@ -31,13 +31,93 @@ Same two files, same pinned commit
 
 ProGen2 columns in the scores file: S, M, Base, L, XL.
 
-**Ladder construction rule, fixed before fitting.** Base and M differ by
-training corpus, not parameter count — both are 764M. Including both would
-put two points at the same x with different y and bias the slope. Drop
-`Progen2 Base`, keep `Progen2 M`. Parameter counts to be verified against
-Nijkamp et al. 2023 before the fit; if verification contradicts these
-figures, the corrected values are used and this paragraph is amended with the
-original left struck.
+**Ladder construction rule, fixed before fitting.** ~~Base and M differ by
+training corpus, not parameter count~~ — **verified, and the original wording
+was imprecise.** Nijkamp et al. Table 1 gives small 151M, medium 764M, base
+764M, large 2.7B, xlarge 6.4B. Medium and base share parameter count, layers,
+heads and head dimension; they differ in context length (1,024 vs 2,048),
+learning rate, warm-up, and total steps (350k vs 400k). Two points at the same
+x with different y would bias the slope regardless of why they differ, so the
+rule stands: drop `Progen2 Base`, keep `Progen2 M`.
+
+Verification gate **passed**. Ladder: 151M / 764M / 2.7B / 6.4B.
+
+## Amendment 1 — ProGen3 added as a second replication ladder
+
+**Written and committed before any 01c outcome was inspected.** Recorded
+here rather than silently folded in.
+
+While confirming column availability, ProteinGym was found to also carry a
+ProGen3 ladder: 112m, 219m, 339m, 762m, 1B, 3B, all scored on the same 217
+assays. This was not known when the protocol was written.
+
+ProGen3 is added as a **second preregistered replication ladder**, analysed
+identically and reported alongside ProGen2. Two independent replications are
+strictly more informative than one, and adding it now — before any result is
+seen — costs nothing in inferential validity.
+
+Parameter counts are taken from ProteinGym's own column labels and must be
+verified against the ProGen3 paper before fitting, under the same gate that
+applied to ProGen2. If they cannot be verified, ProGen3 is dropped and ProGen2
+proceeds alone.
+
+Upper segment for ProGen3: 762m and above, by the same analogy to ESM-2's
+650M breakpoint that fixed ProGen2's at 764M. Not chosen by inspecting
+results.
+
+**This amendment does not change the ProGen2 analysis, the prediction, the
+decision rule, or the kill criteria.** Those remain as originally committed.
+
+## Amendment 2 — ProGen3 verification gate, and two limits recorded in advance
+
+**Written before any 01c outcome was inspected.**
+
+Verified against the official Profluent-AI/progen3 release: 112m, 219m, 339m,
+762m, 1b, 3b. These match ProteinGym's column labels. **Gate passed.**
+
+Two properties of ProGen3 were not known when Amendment 1 was written and
+must be recorded before results are seen.
+
+**Sparse mixture of experts.** ProGen3 activates roughly 27% of parameters
+per forward pass. Because the sparsity fraction is constant across the
+ladder, total and active parameters stay proportional and log-scaling within
+the ladder is unaffected up to an additive constant — the within-ladder
+interaction is well defined. Cross-model *magnitude* comparison against dense
+ESM-2 and ProGen2 is not well defined, and no such comparison will be made on
+magnitude alone.
+
+**Truncated upper segment.** ProteinGym scores ProGen3 only to 3B; the 46B
+model is absent. Upper-segment scaling range by ladder:
+
+| Ladder | Upper segment | log10 span |
+|---|---|---|
+| ESM-2 | 650M – 15B | 1.36 |
+| ProGen2 | 764M – 6.4B | 0.92 |
+| ProGen3 | 762m – 3B | 0.60 |
+
+Both replications have less leverage than the original. Wider intervals are
+expected by construction. A wide interval in ProGen3 is **inconclusive, not
+null**, and the decision table already says so.
+
+## Amendment 3 — cross-model comparison is paired, not independent
+
+**Written before any 01c outcome was inspected.**
+
+All three ladders are scored on the same 217 assays. The estimates are
+therefore **correlated**, and this is replication across architectures, not
+across benchmarks. A shared benchmark artefact — assay composition, scoring
+protocol, context truncation — would reproduce in all three and look exactly
+like independent confirmation.
+
+Consequences, fixed now:
+
+- Random-effects pooling across models is **not** applied. DerSimonian-Laird
+  assumes independent estimates; these are not independent.
+- The cross-model comparison is a **paired** contrast on shared assays:
+  per-assay model-specific slopes, differenced within assay.
+- `cross_model_summary.csv` reports each ladder's beta, CI, and bootstrap
+  P(beta < 0) side by side, with the shared-assay caveat stated in the file
+  itself, not only in prose.
 
 ## Specification
 
@@ -106,6 +186,14 @@ footnote.
   generalize; amend `models/esm2.md` to scope the claim to ESM-2 and stop
   this line.
 - Parameter counts cannot be verified → do not fit; the ladder is undefined.
+
+## Multiplicity
+
+Two ladders means two primary tests. No correction is applied, because the
+decision rule is not a significance threshold — it reads sign, magnitude and
+interval together. Both ladders are reported in full whatever they show, so
+there is no selective-reporting channel to correct for. A reader who prefers
+a corrected threshold has both results and can apply one.
 
 ## What this cannot establish
 
