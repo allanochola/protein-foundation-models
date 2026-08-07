@@ -3,6 +3,36 @@
 Written before the analysis, amended after. Amendments are marked and the
 original wording is left intact.
 
+## Relationship to Hou et al. (2026)
+
+Hou, Liu, Zafar et al., "Understanding language model scaling for protein
+fitness prediction," *Nature Computational Science* 6:778-788 (2026)
+(bioRxiv 2025.04.25.650688), independently report non-monotonic scaling
+across 154 ProteinGym experiments on the same 8M-15B ESM-2 ladder. They
+attribute it to predicted wild-type sequence likelihood: performance is best
+at moderate p(sequence) and falls at extremes, where models assign nearly
+uniform likelihoods across mutations.
+
+**Experiment 01 no longer claims to discover that scaling is non-monotonic.**
+That result is theirs, on the same ladder and benchmark, and published first.
+
+The remaining contribution is narrower and does not overlap with Hou:
+
+1. Hou's axis is predicted wild-type likelihood — a model-internal quantity
+   requiring a forward pass. Experiment 01's axis is MSA Neff/L — a
+   benchmark-external property of the assay, measurable without the model.
+   The two are correlated but distinct; testing the reversal against the
+   external axis is not what Hou did.
+2. Quantifying the association under assay fixed effects (01b), which absorbs
+   every assay-level confound. Hou report polynomial fits, not a
+   fixed-effects interaction.
+3. Testing replication outside ESM-2, in ProGen2 and ProGen3 (01c). Hou
+   analyze ESM-2 only.
+
+Novelty claim, stated plainly so it can be checked: the depth-versus-scaling
+interaction under fixed effects, and its cross-architecture replication. Not
+the existence of non-monotonic scaling.
+
 ## Question
 
 Do reported ESM-2 scaling gains on zero-shot variant effect prediction
