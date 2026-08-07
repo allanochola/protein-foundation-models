@@ -1,0 +1,31 @@
+{
+  "experiment": "03_depth_balanced",
+  "utc": "2026-08-07T23:02:53+00:00",
+  "git_commit": "7baf048",
+  "python": "3.12.13",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+  "device": "cpu (torch 2.11.0+cpu)",
+  "seed": 0,
+  "packages": {
+    "pandas": "2.2.2",
+    "numpy": "2.0.2",
+    "scipy": "1.16.3",
+    "statsmodels": "0.14.6",
+    "transformers": "5.13.1"
+  },
+  "common_set": 167,
+  "strata": {
+    "Low": 25,
+    "Medium": 82,
+    "High": 60
+  },
+  "n_balance": 25,
+  "floor": 0.1,
+  "reps": 2000,
+  "converged": 2000,
+  "beta_original": {
+    "esm2": -0.011763173664098195,
+    "progen2": -0.01538344720078248,
+    "progen3": -0.017611763301136854
+  }
+}

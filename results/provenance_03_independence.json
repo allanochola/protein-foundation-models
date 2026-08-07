@@ -1,0 +1,43 @@
+{
+  "experiment": "03_independence",
+  "utc": "2026-08-07T22:39:35+00:00",
+  "git_commit": "7baf048",
+  "python": "3.12.13",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+  "device": "cpu (torch 2.11.0+cpu)",
+  "seed": 0,
+  "packages": {
+    "pandas": "2.2.2",
+    "numpy": "2.0.2",
+    "scipy": "1.16.3",
+    "statsmodels": "0.14.6",
+    "transformers": "5.13.1"
+  },
+  "independent_set": 178,
+  "floor": 0.1,
+  "bootstrap_reps": 2000,
+  "dropped_by_floor": {
+    "esm2": [
+      "A0A1I9GEU1_NEIME_Kennouche_2019",
+      "A0A247D711_LISMN_Stadelmann_2021",
+      "I6TAH8_I68A0_Doud_2015",
+      "Q6WV12_9MAXI_Somermeyer_2022",
+      "Q8WTC7_9CNID_Somermeyer_2022",
+      "SPA_STAAU_Tsuboyama_2023_1LP1",
+      "SPIKE_SARS2_Starr_2020_binding",
+      "TAT_HV1BR_Fernandes_2016"
+    ],
+    "progen2": [
+      "A0A1I9GEU1_NEIME_Kennouche_2019",
+      "MK01_HUMAN_Brenan_2016",
+      "Q6WV12_9MAXI_Somermeyer_2022",
+      "TADBP_HUMAN_Bolognesi_2019"
+    ],
+    "progen3": [
+      "A0A1I9GEU1_NEIME_Kennouche_2019",
+      "Q6WV12_9MAXI_Somermeyer_2022",
+      "SCN5A_HUMAN_Glazer_2019",
+      "SPA_STAAU_Tsuboyama_2023_1LP1"
+    ]
+  }
+}

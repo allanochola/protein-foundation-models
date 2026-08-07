@@ -1,0 +1,179 @@
+homology_cluster_50,assay_id,uniprot_id,taxon,selection_type,msa_neff_l,msa_neff_l_category,n_single_mutants,rule
+A0A140D2T1_ZIKV_Sourisseau_2019,A0A140D2T1_ZIKV_Sourisseau_2019,A0A140D2T1_ZIKV,Virus,Growth,1.63,Medium,9576,max n_single_mutants; ties lexicographic by assay_id
+A0A192B1T2_9HIV1_Haddox_2018,ENV_HV1BR_Haddox_2016,ENV_HV1BR,Virus,Growth,43.39,Medium,12863,max n_single_mutants; ties lexicographic by assay_id
+A0A1I9GEU1_NEIME_Kennouche_2019,A0A1I9GEU1_NEIME_Kennouche_2019,A0A1I9GEU1_NEIME,Prokaryote,,14.07,Medium,922,max n_single_mutants; ties lexicographic by assay_id
+A0A247D711_LISMN_Stadelmann_2021,A0A247D711_LISMN_Stadelmann_2021,A0A247D711_LISMN,Prokaryote,Flow cytometry,0.1,Low,1653,max n_single_mutants; ties lexicographic by assay_id
+A0A2Z5U3Z0_9INFA_Wu_2014,A0A2Z5U3Z0_9INFA_Doud_2016,A0A2Z5U3Z0_9INFA,Virus,Growth,16.01,Medium,10715,max n_single_mutants; ties lexicographic by assay_id
+A4D664_9INFA_Soh_2019,A4D664_9INFA_Soh_2019,A4D664_9INFA,Virus,Growth,1.7,Medium,14421,max n_single_mutants; ties lexicographic by assay_id
+A4GRB6_PSEAI_Chen_2020,A4GRB6_PSEAI_Chen_2020,A4GRB6_PSEAI,Prokaryote,Antibiotics resistance,120.61,High,5004,max n_single_mutants; ties lexicographic by assay_id
+A4_HUMAN_Seuma_2022,A4_HUMAN_Seuma_2022,A4_HUMAN,Human,survival assessment assay,0.08,Low,796,max n_single_mutants; ties lexicographic by assay_id
+AACC1_PSEAI_Dandage_2018,AACC1_PSEAI_Dandage_2018,AACC1_PSEAI,Prokaryote,Antibiotics resistance,985.3,High,1801,max n_single_mutants; ties lexicographic by assay_id
+ACE2_HUMAN_Chan_2020,ACE2_HUMAN_Chan_2020,ACE2_HUMAN,Human,Flow Cytometry Assay,1.97,Medium,2223,max n_single_mutants; ties lexicographic by assay_id
+ADRB2_HUMAN_Jones_2020,ADRB2_HUMAN_Jones_2020,ADRB2_HUMAN,Human,Receptor activity,67.99,Medium,7800,max n_single_mutants; ties lexicographic by assay_id
+AICDA_HUMAN_Gajula_2014_3cycles,AICDA_HUMAN_Gajula_2014_3cycles,AICDA_HUMAN,Human,bulk RNA-sequencing,18.4,Medium,209,max n_single_mutants; ties lexicographic by assay_id
+AMFR_HUMAN_Tsuboyama_2023_4G3O,AMFR_HUMAN_Tsuboyama_2023_4G3O,AMFR_HUMAN,Human,cDNA display proteolysis,26.51,Medium,820,max n_single_mutants; ties lexicographic by assay_id
+AMIE_PSEAE_Wrenbeck_2017,AMIE_PSEAE_Wrenbeck_2017,AMIE_PSEAE,Prokaryote,Growth,89.1,Medium,6227,max n_single_mutants; ties lexicographic by assay_id
+ANCSZ_Hobbs_2022,ANCSZ_Hobbs_2022,ANCSZ,Eukaryote,enzymatic activity,1.79,Medium,4670,max n_single_mutants; ties lexicographic by assay_id
+ARGR_ECOLI_Tsuboyama_2023_1AOY,ARGR_ECOLI_Tsuboyama_2023_1AOY,ARGR_ECOLI,Prokaryote,cDNA display proteolysis,54.24,Medium,1287,max n_single_mutants; ties lexicographic by assay_id
+B2L11_HUMAN_Dutta_2010_binding-Mcl-1,B2L11_HUMAN_Dutta_2010_binding-Mcl-1,B2L11_HUMAN,Human,FACS,0.45,Low,170,max n_single_mutants; ties lexicographic by assay_id
+BBC1_YEAST_Tsuboyama_2023_1TG0,BBC1_YEAST_Tsuboyama_2023_1TG0,BBC1_YEAST,Eukaryote,cDNA display proteolysis,271.76,High,1084,max n_single_mutants; ties lexicographic by assay_id
+BCHB_CHLTE_Tsuboyama_2023_2KRU,BCHB_CHLTE_Tsuboyama_2023_2KRU,BCHB_CHLTE,Prokaryote,cDNA display proteolysis,51.95,Medium,890,max n_single_mutants; ties lexicographic by assay_id
+BLAT_ECOLX_Deng_2012,BLAT_ECOLX_Deng_2012,BLAT_ECOLX,Prokaryote,Amp resistance,177.98,High,4996,max n_single_mutants; ties lexicographic by assay_id
+BRCA1_HUMAN_Findlay_2018,BRCA1_HUMAN_Findlay_2018,BRCA1_HUMAN,Human,Growth,0.05,Low,1837,max n_single_mutants; ties lexicographic by assay_id
+BRCA2_HUMAN_Erwood_2022_HEK293T,BRCA2_HUMAN_Erwood_2022_HEK293T,BRCA2_HUMAN,Human,Growth,0.02,Low,265,max n_single_mutants; ties lexicographic by assay_id
+C6KNH7_9INFA_Lee_2018,C6KNH7_9INFA_Lee_2018,C6KNH7_9INFA,Virus,Growth,16.0,Medium,10754,max n_single_mutants; ties lexicographic by assay_id
+CALM1_HUMAN_Weile_2017,CALM1_HUMAN_Weile_2017,CALM1_HUMAN,Human,complementation,190.77,High,1813,max n_single_mutants; ties lexicographic by assay_id
+CAPSD_AAV2S_Sinai_2021,CAPSD_AAV2S_Sinai_2021,CAPSD_AAV2S,Virus,,0.26,Low,532,max n_single_mutants; ties lexicographic by assay_id
+CAR11_HUMAN_Meitlis_2020_lof,CAR11_HUMAN_Meitlis_2020_lof,CAR11_HUMAN,Human,survival assessment assay,0.04,Low,2395,max n_single_mutants; ties lexicographic by assay_id
+CAS9_STRP1_Spencer_2017_positive,CAS9_STRP1_Spencer_2017_positive,CAS9_STRP1,Prokaryote,Flow cytometry,1.14,Medium,8117,max n_single_mutants; ties lexicographic by assay_id
+CASP3_HUMAN_Roychowdhury_2020,CASP7_HUMAN_Roychowdhury_2020,CASP7_HUMAN,Human,,80.66,Medium,1680,max n_single_mutants; ties lexicographic by assay_id
+CATR_CHLRE_Tsuboyama_2023_2AMI,CATR_CHLRE_Tsuboyama_2023_2AMI,CATR_CHLRE,Eukaryote,cDNA display proteolysis,1107.51,High,1340,max n_single_mutants; ties lexicographic by assay_id
+CBPA2_HUMAN_Tsuboyama_2023_1O6X,CBPA2_HUMAN_Tsuboyama_2023_1O6X,CBPA2_HUMAN,Human,cDNA display proteolysis,43.64,Medium,1357,max n_single_mutants; ties lexicographic by assay_id
+CBS_HUMAN_Sun_2020,CBS_HUMAN_Sun_2020,CBS_HUMAN,Human,Growth,3.5,Medium,7217,max n_single_mutants; ties lexicographic by assay_id
+CBX4_HUMAN_Tsuboyama_2023_2K28,CBX4_HUMAN_Tsuboyama_2023_2K28,CBX4_HUMAN,Human,cDNA display proteolysis,269.65,High,917,max n_single_mutants; ties lexicographic by assay_id
+CCDB_ECOLI_Tripathi_2016,CCDB_ECOLI_Tripathi_2016,CCDB_ECOLI,Prokaryote,Growth,168.82,High,1663,max n_single_mutants; ties lexicographic by assay_id
+CCR5_HUMAN_Gill_2023,CCR5_HUMAN_Gill_2023,CCR5_HUMAN,Human,FACS,182.74,High,6137,max n_single_mutants; ties lexicographic by assay_id
+CD19_HUMAN_Klesmith_2019_FMC_singles,CD19_HUMAN_Klesmith_2019_FMC_singles,CD19_HUMAN,Human,FACS,0.5,Low,3761,max n_single_mutants; ties lexicographic by assay_id
+CP2C9_HUMAN_Amorosi_2021_activity,CP2C9_HUMAN_Amorosi_2021_abundance,CP2C9_HUMAN,Human,protein abundance,165.48,High,6370,max n_single_mutants; ties lexicographic by assay_id
+CSN4_MOUSE_Tsuboyama_2023_1UFM,CSN4_MOUSE_Tsuboyama_2023_1UFM,CSN4_MOUSE,Eukaryote,cDNA display proteolysis,48.23,Medium,1353,max n_single_mutants; ties lexicographic by assay_id
+CUE1_YEAST_Tsuboyama_2023_2MYX,CUE1_YEAST_Tsuboyama_2023_2MYX,CUE1_YEAST,Eukaryote,cDNA display proteolysis,7.64,Medium,955,max n_single_mutants; ties lexicographic by assay_id
+D7PM05_CLYGR_Somermeyer_2022,D7PM05_CLYGR_Somermeyer_2022,D7PM05_CLYGR,Eukaryote,FACS,0.6,Low,1169,max n_single_mutants; ties lexicographic by assay_id
+DLG4_RAT_McLaughlin_2012,DLG4_RAT_McLaughlin_2012,DLG4_RAT,Eukaryote,Binding,0.36,Low,1576,max n_single_mutants; ties lexicographic by assay_id
+DN7A_SACS2_Tsuboyama_2023_1JIC,DN7A_SACS2_Tsuboyama_2023_1JIC,DN7A_SACS2,Prokaryote,cDNA display proteolysis,24.82,Medium,1008,max n_single_mutants; ties lexicographic by assay_id
+DNJA1_HUMAN_Tsuboyama_2023_2LO1,DNJA1_HUMAN_Tsuboyama_2023_2LO1,DNJA1_HUMAN,Human,cDNA display proteolysis,547.68,High,1216,max n_single_mutants; ties lexicographic by assay_id
+DOCK1_MOUSE_Tsuboyama_2023_2M0Y,DOCK1_MOUSE_Tsuboyama_2023_2M0Y,DOCK1_MOUSE,Eukaryote,cDNA display proteolysis,368.28,High,1213,max n_single_mutants; ties lexicographic by assay_id
+DYR_ECOLI_Thompson_2019,DYR_ECOLI_Nguyen_2023,DYR_ECOLI,Prokaryote,Growth,337.1,High,2916,max n_single_mutants; ties lexicographic by assay_id
+ENVZ_ECOLI_Ghose_2023,ENVZ_ECOLI_Ghose_2023,ENVZ_ECOLI,Prokaryote,FACS,4595.33,High,1121,max n_single_mutants; ties lexicographic by assay_id
+EPHB2_HUMAN_Tsuboyama_2023_1F0M,EPHB2_HUMAN_Tsuboyama_2023_1F0M,EPHB2_HUMAN,Human,cDNA display proteolysis,126.33,High,1239,max n_single_mutants; ties lexicographic by assay_id
+ERBB2_HUMAN_Elazar_2016,ERBB2_HUMAN_Elazar_2016,ERBB2_HUMAN,Human,TOXCAT-Beta-lactamase (TbL) screen,0.32,Low,326,max n_single_mutants; ties lexicographic by assay_id
+ESTA_BACSU_Nutschel_2020,ESTA_BACSU_Nutschel_2020,ESTA_BACSU,Prokaryote,thermostability,313.28,High,2172,max n_single_mutants; ties lexicographic by assay_id
+F7YBW8_MESOW_Aakre_2015,F7YBW8_MESOW_Ding_2023,F7YBW8_MESOW,Prokaryote,Growth (antitoxin neutralization of ParE3),176.23,High,80,max n_single_mutants; ties lexicographic by assay_id
+FECA_ECOLI_Tsuboyama_2023_2D1U,FECA_ECOLI_Tsuboyama_2023_2D1U,FECA_ECOLI,Prokaryote,cDNA display proteolysis,141.6,High,1219,max n_single_mutants; ties lexicographic by assay_id
+FKBP3_HUMAN_Tsuboyama_2023_2KFV,FKBP3_HUMAN_Tsuboyama_2023_2KFV,FKBP3_HUMAN,Human,cDNA display proteolysis,1.85,Medium,1237,max n_single_mutants; ties lexicographic by assay_id
+GAL4_YEAST_Kitzman_2015,GAL4_YEAST_Kitzman_2015,GAL4_YEAST,Eukaryote,Growth,10.02,Medium,1195,max n_single_mutants; ties lexicographic by assay_id
+GCN4_YEAST_Staller_2018,GCN4_YEAST_Staller_2018,GCN4_YEAST,Eukaryote,FACS,0.66,Low,33,max n_single_mutants; ties lexicographic by assay_id
+GDIA_HUMAN_Silverstein_2021,GDIA_HUMAN_Silverstein_2021,GDIA_HUMAN,Human,Growth,0.8,Low,1154,max n_single_mutants; ties lexicographic by assay_id
+GLPA_HUMAN_Elazar_2016,GLPA_HUMAN_Elazar_2016,GLPA_HUMAN,Human,TOXCAT-Beta-lactamase (TbL) screen,0.51,Low,245,max n_single_mutants; ties lexicographic by assay_id
+GRB2_HUMAN_Faure_2021,GRB2_HUMAN_Faure_2021,GRB2_HUMAN,Human,Growth,6.78,Medium,1034,max n_single_mutants; ties lexicographic by assay_id
+HCP_LAMBD_Tsuboyama_2023_2L6Q,HCP_LAMBD_Tsuboyama_2023_2L6Q,HCP_LAMBD,Virus,cDNA display proteolysis,30.76,Medium,1040,max n_single_mutants; ties lexicographic by assay_id
+HECD1_HUMAN_Tsuboyama_2023_3DKM,HECD1_HUMAN_Tsuboyama_2023_3DKM,HECD1_HUMAN,Human,cDNA display proteolysis,17.22,Medium,1244,max n_single_mutants; ties lexicographic by assay_id
+HEM3_HUMAN_Loggerenberg_2023,HEM3_HUMAN_Loggerenberg_2023,HEM3_HUMAN,Human,Yeast complementation,32.84,Medium,5689,max n_single_mutants; ties lexicographic by assay_id
+HIS7_YEAST_Pokusaeva_2019,HIS7_YEAST_Pokusaeva_2019,HIS7_YEAST,Eukaryote,Growth,23.97,Medium,168,max n_single_mutants; ties lexicographic by assay_id
+HMDH_HUMAN_Jiang_2019,HMDH_HUMAN_Jiang_2019,HMDH_HUMAN,Human,Resistance to statin inhibition,0.58,Low,16853,max n_single_mutants; ties lexicographic by assay_id
+HSP82_YEAST_Cote-Hammarlof_2020_growth-H2O2,HSP82_YEAST_Flynn_2019,HSP82_YEAST,Eukaryote,Growth,5.45,Medium,13294,max n_single_mutants; ties lexicographic by assay_id
+HXK4_HUMAN_Gersing_2023_abundance,HXK4_HUMAN_Gersing_2022_activity,HXK4_HUMAN,Human,enzymatic activity,4.99,Medium,8570,max n_single_mutants; ties lexicographic by assay_id
+IF1_ECOLI_Kelsic_2016,IF1_ECOLI_Kelsic_2016,IF1_ECOLI,Prokaryote,Growth,536.24,High,1367,max n_single_mutants; ties lexicographic by assay_id
+ILF3_HUMAN_Tsuboyama_2023_2L33,ILF3_HUMAN_Tsuboyama_2023_2L33,ILF3_HUMAN,Human,cDNA display proteolysis,309.51,High,1329,max n_single_mutants; ties lexicographic by assay_id
+ISDH_STAAW_Tsuboyama_2023_2LHR,ISDH_STAAW_Tsuboyama_2023_2LHR,ISDH_STAAW,Prokaryote,cDNA display proteolysis,713.67,High,940,max n_single_mutants; ties lexicographic by assay_id
+KCNE1_HUMAN_Muhammad_2023_function,KCNE1_HUMAN_Muhammad_2023_expression,KCNE1_HUMAN,Human,FACS,1.74,Medium,2339,max n_single_mutants; ties lexicographic by assay_id
+KCNH2_HUMAN_Kozek_2020,KCNH2_HUMAN_Kozek_2020,KCNH2_HUMAN,Human,Voltage,6.29,Medium,200,max n_single_mutants; ties lexicographic by assay_id
+KCNJ2_MOUSE_Coyote-Maestas_2022_surface,KCNJ2_MOUSE_Coyote-Maestas_2022_function,KCNJ2_MOUSE,Eukaryote,FACS,5.28,Medium,6963,max n_single_mutants; ties lexicographic by assay_id
+KKA2_KLEPN_Melnikov_2014,KKA2_KLEPN_Melnikov_2014,KKA2_KLEPN,Prokaryote,Growth,298.65,High,4960,max n_single_mutants; ties lexicographic by assay_id
+LGK_LIPST_Klesmith_2015,LGK_LIPST_Klesmith_2015,LGK_LIPST,Eukaryote,Growth,18.83,Medium,7890,max n_single_mutants; ties lexicographic by assay_id
+LYAM1_HUMAN_Elazar_2016,LYAM1_HUMAN_Elazar_2016,LYAM1_HUMAN,Human,TOXCAT-Beta-lactamase (TbL) screen,1.09,Medium,359,max n_single_mutants; ties lexicographic by assay_id
+MAFG_MOUSE_Tsuboyama_2023_1K1V,MAFG_MOUSE_Tsuboyama_2023_1K1V,MAFG_MOUSE,Eukaryote,cDNA display proteolysis,3.89,Medium,762,max n_single_mutants; ties lexicographic by assay_id
+MBD11_ARATH_Tsuboyama_2023_6ACV,MBD11_ARATH_Tsuboyama_2023_6ACV,MBD11_ARATH,Eukaryote,cDNA display proteolysis,24.91,Medium,1155,max n_single_mutants; ties lexicographic by assay_id
+MET_HUMAN_Estevam_2023,MET_HUMAN_Estevam_2023,MET_HUMAN,Human,Growth,17.78,Medium,5393,max n_single_mutants; ties lexicographic by assay_id
+MK01_HUMAN_Brenan_2016,MK01_HUMAN_Brenan_2016,MK01_HUMAN,Human,inhibitor resistance,25.98,Medium,6809,max n_single_mutants; ties lexicographic by assay_id
+MLAC_ECOLI_MacRae_2023,MLAC_ECOLI_MacRae_2023,MLAC_ECOLI,Prokaryote,Growth,37.67,Medium,4007,max n_single_mutants; ties lexicographic by assay_id
+MSH2_HUMAN_Jia_2020,MSH2_HUMAN_Jia_2020,MSH2_HUMAN,Human,,11.71,Medium,16749,max n_single_mutants; ties lexicographic by assay_id
+MTH3_HAEAE_RockahShmuel_2015,MTH3_HAEAE_RockahShmuel_2015,MTH3_HAEAE,Prokaryote,Activity,82.51,Medium,1777,max n_single_mutants; ties lexicographic by assay_id
+MTHR_HUMAN_Weile_2021,MTHR_HUMAN_Weile_2021,MTHR_HUMAN,Human,,0.99,Low,12464,max n_single_mutants; ties lexicographic by assay_id
+MYO3_YEAST_Tsuboyama_2023_2BTT,MYO3_YEAST_Tsuboyama_2023_2BTT,MYO3_YEAST,Eukaryote,cDNA display proteolysis,208.4,High,947,max n_single_mutants; ties lexicographic by assay_id
+NCAP_I34A1_Doud_2015,I6TAH8_I68A0_Doud_2015,I6TAH8_I68A0,Virus,Growth,2.15,Medium,9462,max n_single_mutants; ties lexicographic by assay_id
+NKX31_HUMAN_Tsuboyama_2023_2L9R,NKX31_HUMAN_Tsuboyama_2023_2L9R,NKX31_HUMAN,Human,cDNA display proteolysis,147.96,High,1149,max n_single_mutants; ties lexicographic by assay_id
+NPC1_HUMAN_Erwood_2022_RPE1,NPC1_HUMAN_Erwood_2022_HEK293T,NPC1_HUMAN,Human,Flow Cytometry Assay,0.67,Low,637,max n_single_mutants; ties lexicographic by assay_id
+NRAM_I33A0_Jiang_2016,NRAM_I33A0_Jiang_2016,NRAM_I33A0,Virus,Growth,15.93,Medium,298,max n_single_mutants; ties lexicographic by assay_id
+NUD15_HUMAN_Suiter_2020,NUD15_HUMAN_Suiter_2020,NUD15_HUMAN,Human,"VAMP-seq, drug sensitivity",281.51,High,2844,max n_single_mutants; ties lexicographic by assay_id
+NUSA_ECOLI_Tsuboyama_2023_1WCL,NUSA_ECOLI_Tsuboyama_2023_1WCL,NUSA_ECOLI,Prokaryote,cDNA display proteolysis,598.86,High,1306,max n_single_mutants; ties lexicographic by assay_id
+NUSG_MYCTU_Tsuboyama_2023_2MI6,NUSG_MYCTU_Tsuboyama_2023_2MI6,NUSG_MYCTU,Prokaryote,cDNA display proteolysis,320.33,High,1019,max n_single_mutants; ties lexicographic by assay_id
+OBSCN_HUMAN_Tsuboyama_2023_1V1C,OBSCN_HUMAN_Tsuboyama_2023_1V1C,OBSCN_HUMAN,Human,cDNA display proteolysis,378.54,High,1213,max n_single_mutants; ties lexicographic by assay_id
+ODP2_GEOSE_Tsuboyama_2023_1W4G,ODP2_GEOSE_Tsuboyama_2023_1W4G,ODP2_GEOSE,Prokaryote,cDNA display proteolysis,397.86,High,669,max n_single_mutants; ties lexicographic by assay_id
+OPSD_HUMAN_Wan_2019,OPSD_HUMAN_Wan_2019,OPSD_HUMAN,Human,Flow Cytometry Assay,107.19,High,165,max n_single_mutants; ties lexicographic by assay_id
+OTC_HUMAN_Lo_2023,OTC_HUMAN_Lo_2023,OTC_HUMAN,Human,,53.97,Medium,1570,max n_single_mutants; ties lexicographic by assay_id
+OTU7A_HUMAN_Tsuboyama_2023_2L2D,OTU7A_HUMAN_Tsuboyama_2023_2L2D,OTU7A_HUMAN,Human,cDNA display proteolysis,12395.25,High,635,max n_single_mutants; ties lexicographic by assay_id
+OXDA_RHOTO_Vanella_2023_expression,OXDA_RHOTO_Vanella_2023_expression,OXDA_RHOTO,Eukaryote,FACS,271.28,High,6769,max n_single_mutants; ties lexicographic by assay_id
+P53_HUMAN_Giacomelli_2018_Null_Etoposide,P53_HUMAN_Giacomelli_2018_Null_Etoposide,P53_HUMAN,Human,Growth,0.39,Low,7467,max n_single_mutants; ties lexicographic by assay_id
+P84126_THETH_Chan_2017,P84126_THETH_Chan_2017,P84126_THETH,Prokaryote,Growth,41.7,Medium,1519,max n_single_mutants; ties lexicographic by assay_id
+PABP_YEAST_Melamed_2013,PABP_YEAST_Melamed_2013,PABP_YEAST,Eukaryote,Growth,1.42,Medium,1187,max n_single_mutants; ties lexicographic by assay_id
+PAI1_HUMAN_Huttinger_2021,PAI1_HUMAN_Huttinger_2021,PAI1_HUMAN,Human,phage fitness,30.34,Medium,5345,max n_single_mutants; ties lexicographic by assay_id
+PA_I34A1_Wu_2015,PA_I34A1_Wu_2015,PA_I34A1,Virus,Growth,1.75,Medium,1820,max n_single_mutants; ties lexicographic by assay_id
+PHOT_CHLRE_Chen_2023,PHOT_CHLRE_Chen_2023,PHOT_CHLRE,Eukaryote,FACS,5215.65,High,2122,max n_single_mutants; ties lexicographic by assay_id
+PIN1_HUMAN_Tsuboyama_2023_1I6C,PIN1_HUMAN_Tsuboyama_2023_1I6C,PIN1_HUMAN,Human,cDNA display proteolysis,287.66,High,686,max n_single_mutants; ties lexicographic by assay_id
+PITX2_HUMAN_Tsuboyama_2023_2L7M,PITX2_HUMAN_Tsuboyama_2023_2L7M,PITX2_HUMAN,Human,cDNA display proteolysis,191.76,High,938,max n_single_mutants; ties lexicographic by assay_id
+PKN1_HUMAN_Tsuboyama_2023_1URF,PKN1_HUMAN_Tsuboyama_2023_1URF,PKN1_HUMAN,Human,cDNA display proteolysis,772.42,High,1301,max n_single_mutants; ties lexicographic by assay_id
+POLG_CXB3N_Mattenberger_2021,POLG_CXB3N_Mattenberger_2021,POLG_CXB3N,Virus,Growth,1.79,Medium,15711,max n_single_mutants; ties lexicographic by assay_id
+POLG_DEN26_Suphatrakul_2023,POLG_DEN26_Suphatrakul_2023,POLG_DEN26,Virus,Growth,0.55,Low,16897,max n_single_mutants; ties lexicographic by assay_id
+POLG_HCVJF_Qi_2014,POLG_HCVJF_Qi_2014,POLG_HCVJF,Virus,Growth,41.97,Medium,1630,max n_single_mutants; ties lexicographic by assay_id
+POLG_PESV_Tsuboyama_2023_2MXD,POLG_PESV_Tsuboyama_2023_2MXD,POLG_PESV,Virus,cDNA display proteolysis,262.74,High,995,max n_single_mutants; ties lexicographic by assay_id
+PPARG_HUMAN_Majithia_2016,PPARG_HUMAN_Majithia_2016,PPARG_HUMAN,Human,FACS,6.24,Medium,9576,max n_single_mutants; ties lexicographic by assay_id
+PPM1D_HUMAN_Miller_2022,PPM1D_HUMAN_Miller_2022,PPM1D_HUMAN,Human,quantification and selection of GFP-positive cells by flow cytometry after DNA damage induced by daunorubicin,0.56,Low,7889,max n_single_mutants; ties lexicographic by assay_id
+PR40A_HUMAN_Tsuboyama_2023_1UZC,PR40A_HUMAN_Tsuboyama_2023_1UZC,PR40A_HUMAN,Human,cDNA display proteolysis,56.72,Medium,1163,max n_single_mutants; ties lexicographic by assay_id
+PRKN_HUMAN_Clausen_2023,PRKN_HUMAN_Clausen_2023,PRKN_HUMAN,Human,FACS,0.37,Low,8756,max n_single_mutants; ties lexicographic by assay_id
+PSAE_PICP2_Tsuboyama_2023_1PSE,PSAE_PICP2_Tsuboyama_2023_1PSE,PSAE_PICP2,Prokaryote,cDNA display proteolysis,1.85,Medium,1219,max n_single_mutants; ties lexicographic by assay_id
+PTEN_HUMAN_Mighell_2018,PTEN_HUMAN_Mighell_2018,PTEN_HUMAN,Human,lipid phosphatase activity,3.72,Medium,7260,max n_single_mutants; ties lexicographic by assay_id
+Q53Z42_HUMAN_McShan_2019_expression,Q53Z42_HUMAN_McShan_2019_binding-TAPBPR,Q53Z42_HUMAN,Human,,13.24,Medium,3344,max n_single_mutants; ties lexicographic by assay_id
+Q59976_STRSQ_Romero_2015,Q59976_STRSQ_Romero_2015,Q59976_STRSQ,Prokaryote,Activity,27.97,Medium,2999,max n_single_mutants; ties lexicographic by assay_id
+Q6WV12_9MAXI_Somermeyer_2022,Q6WV12_9MAXI_Somermeyer_2022,Q6WV12_9MAXI,Eukaryote,FACS,0.44,Low,1141,max n_single_mutants; ties lexicographic by assay_id
+Q837P4_ENTFA_Meier_2023,Q837P4_ENTFA_Meier_2023,Q837P4_ENTFA,Prokaryote,Growth,90.8,Medium,697,max n_single_mutants; ties lexicographic by assay_id
+Q837P5_ENTFA_Meier_2023,Q837P5_ENTFA_Meier_2023,Q837P5_ENTFA,Prokaryote,Growth,95.02,Medium,747,max n_single_mutants; ties lexicographic by assay_id
+Q8WTC7_9CNID_Somermeyer_2022,Q8WTC7_9CNID_Somermeyer_2022,Q8WTC7_9CNID,Eukaryote,FACS,0.51,Low,1201,max n_single_mutants; ties lexicographic by assay_id
+R1AB_SARS2_Flynn_2022,R1AB_SARS2_Flynn_2022,R1AB_SARS2,Virus,,1.14,Medium,5725,max n_single_mutants; ties lexicographic by assay_id
+RAD_ANTMA_Tsuboyama_2023_2CJJ,RAD_ANTMA_Tsuboyama_2023_2CJJ,RAD_ANTMA,Eukaryote,cDNA display proteolysis,777.81,High,774,max n_single_mutants; ties lexicographic by assay_id
+RAF1_HUMAN_Zinkus-Boltz_2019,RAF1_HUMAN_Zinkus-Boltz_2019,RAF1_HUMAN,Human,binding assays,0.59,Low,297,max n_single_mutants; ties lexicographic by assay_id
+RASK_HUMAN_Weng_2022_binding-DARPin_K55,RASH_HUMAN_Bandaru_2017,RASH_HUMAN,Human,activity,125.77,High,3134,max n_single_mutants; ties lexicographic by assay_id
+RBP1_HUMAN_Tsuboyama_2023_2KWH,RBP1_HUMAN_Tsuboyama_2023_2KWH,RBP1_HUMAN,Human,cDNA display proteolysis,976.49,High,975,max n_single_mutants; ties lexicographic by assay_id
+RCD1_ARATH_Tsuboyama_2023_5OAO,RCD1_ARATH_Tsuboyama_2023_5OAO,RCD1_ARATH,Eukaryote,cDNA display proteolysis,28.23,Medium,988,max n_single_mutants; ties lexicographic by assay_id
+RCRO_LAMBD_Tsuboyama_2023_1ORC,RCRO_LAMBD_Tsuboyama_2023_1ORC,RCRO_LAMBD,Virus,cDNA display proteolysis,803.73,High,1195,max n_single_mutants; ties lexicographic by assay_id
+RD23A_HUMAN_Tsuboyama_2023_1IFY,RD23A_HUMAN_Tsuboyama_2023_1IFY,RD23A_HUMAN,Human,cDNA display proteolysis,182.36,High,798,max n_single_mutants; ties lexicographic by assay_id
+RDRP_I33A0_Li_2023,RDRP_I33A0_Li_2023,RDRP_I33A0,Virus,Growth,1.52,Medium,12003,max n_single_mutants; ties lexicographic by assay_id
+REV_HV1H2_Fernandes_2016,REV_HV1H2_Fernandes_2016,REV_HV1H2,Virus,Growth,104.82,High,2147,max n_single_mutants; ties lexicographic by assay_id
+RFAH_ECOLI_Tsuboyama_2023_2LCL,RFAH_ECOLI_Tsuboyama_2023_2LCL,RFAH_ECOLI,Prokaryote,cDNA display proteolysis,258.65,High,969,max n_single_mutants; ties lexicographic by assay_id
+RL20_AQUAE_Tsuboyama_2023_1GYZ,RL20_AQUAE_Tsuboyama_2023_1GYZ,RL20_AQUAE,Prokaryote,cDNA display proteolysis,1816.95,High,1121,max n_single_mutants; ties lexicographic by assay_id
+RL40A_YEAST_Mavor_2016,RL40A_YEAST_Roscoe_2014,RL40A_YEAST,Eukaryote,Binding,30.52,Medium,1380,max n_single_mutants; ties lexicographic by assay_id
+RNC_ECOLI_Weeks_2023,RNC_ECOLI_Weeks_2023,RNC_ECOLI,Prokaryote,FACS,70.7,Medium,4277,max n_single_mutants; ties lexicographic by assay_id
+RPC1_BP434_Tsuboyama_2023_1R69,RPC1_BP434_Tsuboyama_2023_1R69,RPC1_BP434,Virus,cDNA display proteolysis,9091.45,High,1124,max n_single_mutants; ties lexicographic by assay_id
+RPC1_LAMBD_Li_2019_low-expression,RPC1_LAMBD_Li_2019_high-expression,RPC1_LAMBD,Virus,FACS,121.45,High,351,max n_single_mutants; ties lexicographic by assay_id
+RS15_GEOSE_Tsuboyama_2023_1A32,RS15_GEOSE_Tsuboyama_2023_1A32,RS15_GEOSE,Prokaryote,cDNA display proteolysis,68.91,Medium,1195,max n_single_mutants; ties lexicographic by assay_id
+S22A1_HUMAN_Yee_2023_activity,S22A1_HUMAN_Yee_2023_activity,S22A1_HUMAN,Human,Growth,62.71,Medium,10094,max n_single_mutants; ties lexicographic by assay_id
+SAV1_MOUSE_Tsuboyama_2023_2YSB,SAV1_MOUSE_Tsuboyama_2023_2YSB,SAV1_MOUSE,Eukaryote,cDNA display proteolysis,105.1,High,679,max n_single_mutants; ties lexicographic by assay_id
+SBI_STAAM_Tsuboyama_2023_2JVG,SBI_STAAM_Tsuboyama_2023_2JVG,SBI_STAAM,Prokaryote,cDNA display proteolysis,27.03,Medium,1025,max n_single_mutants; ties lexicographic by assay_id
+SC6A4_HUMAN_Young_2021,SC6A4_HUMAN_Young_2021,SC6A4_HUMAN,Human,Fluorescence,8.81,Medium,11576,max n_single_mutants; ties lexicographic by assay_id
+SCIN_STAAR_Tsuboyama_2023_2QFF,SCIN_STAAR_Tsuboyama_2023_2QFF,SCIN_STAAR,Prokaryote,cDNA display proteolysis,163.66,High,1212,max n_single_mutants; ties lexicographic by assay_id
+SCN5A_HUMAN_Glazer_2019,SCN5A_HUMAN_Glazer_2019,SCN5A_HUMAN,Human,,26.58,Medium,224,max n_single_mutants; ties lexicographic by assay_id
+SDA_BACSU_Tsuboyama_2023_1PV0,SDA_BACSU_Tsuboyama_2023_1PV0,SDA_BACSU,Prokaryote,cDNA display proteolysis,20.05,Medium,834,max n_single_mutants; ties lexicographic by assay_id
+SERC_HUMAN_Xie_2023,SERC_HUMAN_Xie_2023,SERC_HUMAN,Human,,117.4,High,1914,max n_single_mutants; ties lexicographic by assay_id
+SHOC2_HUMAN_Kwon_2022,SHOC2_HUMAN_Kwon_2022,SHOC2_HUMAN,Human,Survival (dosed with trametinib),15.55,Medium,10972,max n_single_mutants; ties lexicographic by assay_id
+SOX30_HUMAN_Tsuboyama_2023_7JJK,SOX30_HUMAN_Tsuboyama_2023_7JJK,SOX30_HUMAN,Human,cDNA display proteolysis,262.24,High,1010,max n_single_mutants; ties lexicographic by assay_id
+SPA_STAAU_Tsuboyama_2023_1LP1,SPA_STAAU_Tsuboyama_2023_1LP1,SPA_STAAU,Prokaryote,cDNA display proteolysis,37.48,Medium,1035,max n_single_mutants; ties lexicographic by assay_id
+SPG1_STRSG_Wu_2016,SPG1_STRSG_Olson_2014,SPG1_STRSG,Prokaryote,Binding,0.0,Low,1045,max n_single_mutants; ties lexicographic by assay_id
+SPG2_STRSG_Tsuboyama_2023_5UBS,SPG2_STRSG_Tsuboyama_2023_5UBS,SPG2_STRSG,Prokaryote,cDNA display proteolysis,56.55,Medium,1029,max n_single_mutants; ties lexicographic by assay_id
+SPIKE_SARS2_Starr_2020_expression,SPIKE_SARS2_Starr_2020_binding,SPIKE_SARS2,Virus,Binding,1.06,Medium,3802,max n_single_mutants; ties lexicographic by assay_id
+SPTN1_CHICK_Tsuboyama_2023_1TUD,SPTN1_CHICK_Tsuboyama_2023_1TUD,SPTN1_CHICK,Eukaryote,cDNA display proteolysis,285.61,High,1051,max n_single_mutants; ties lexicographic by assay_id
+SQSTM_MOUSE_Tsuboyama_2023_2RRU,SQSTM_MOUSE_Tsuboyama_2023_2RRU,SQSTM_MOUSE,Eukaryote,cDNA display proteolysis,84.27,Medium,707,max n_single_mutants; ties lexicographic by assay_id
+SR43C_ARATH_Tsuboyama_2023_2N88,SR43C_ARATH_Tsuboyama_2023_2N88,SR43C_ARATH,Eukaryote,cDNA display proteolysis,253.55,High,889,max n_single_mutants; ties lexicographic by assay_id
+SRBS1_HUMAN_Tsuboyama_2023_2O2W,SRBS1_HUMAN_Tsuboyama_2023_2O2W,SRBS1_HUMAN,Human,cDNA display proteolysis,363.68,High,1211,max n_single_mutants; ties lexicographic by assay_id
+SRC_HUMAN_Ahler_2019,SRC_HUMAN_Chakraborty_2023_binding-DAS_25uM,SRC_HUMAN,Human,Growth,3.38,Medium,3637,max n_single_mutants; ties lexicographic by assay_id
+SUMO1_HUMAN_Weile_2017,SUMO1_HUMAN_Weile_2017,SUMO1_HUMAN,Human,complementation,140.9,High,1700,max n_single_mutants; ties lexicographic by assay_id
+SYUA_HUMAN_Newberry_2020,SYUA_HUMAN_Newberry_2020,SYUA_HUMAN,Human,Growth,47.17,Medium,2497,max n_single_mutants; ties lexicographic by assay_id
+TADBP_HUMAN_Bolognesi_2019,TADBP_HUMAN_Bolognesi_2019,TADBP_HUMAN,Human,Growth,0.33,Low,1196,max n_single_mutants; ties lexicographic by assay_id
+TAT_HV1BR_Fernandes_2016,TAT_HV1BR_Fernandes_2016,TAT_HV1BR,Virus,Growth,115.56,High,1577,max n_single_mutants; ties lexicographic by assay_id
+TCRG1_MOUSE_Tsuboyama_2023_1E0L,TCRG1_MOUSE_Tsuboyama_2023_1E0L,TCRG1_MOUSE,Eukaryote,cDNA display proteolysis,79.56,Medium,621,max n_single_mutants; ties lexicographic by assay_id
+THO1_YEAST_Tsuboyama_2023_2WQG,THO1_YEAST_Tsuboyama_2023_2WQG,THO1_YEAST,Eukaryote,cDNA display proteolysis,206.87,High,656,max n_single_mutants; ties lexicographic by assay_id
+TNKS2_HUMAN_Tsuboyama_2023_5JRT,TNKS2_HUMAN_Tsuboyama_2023_5JRT,TNKS2_HUMAN,Human,cDNA display proteolysis,195.89,High,1118,max n_single_mutants; ties lexicographic by assay_id
+TPK1_HUMAN_Weile_2017,TPK1_HUMAN_Weile_2017,TPK1_HUMAN,Human,complementation,29.93,Medium,3181,max n_single_mutants; ties lexicographic by assay_id
+TPMT_HUMAN_Matreyek_2018,TPMT_HUMAN_Matreyek_2018,TPMT_HUMAN,Human,Protein stability,26.71,Medium,3648,max n_single_mutants; ties lexicographic by assay_id
+TPOR_HUMAN_Bridgford_2020,TPOR_HUMAN_Bridgford_2020,TPOR_HUMAN,Human,Growth,0.19,Low,562,max n_single_mutants; ties lexicographic by assay_id
+TRPC_SACS2_Chan_2017,TRPC_SACS2_Chan_2017,TRPC_SACS2,Prokaryote,Growth,41.98,Medium,1519,max n_single_mutants; ties lexicographic by assay_id
+TRPC_THEMA_Chan_2017,TRPC_THEMA_Chan_2017,TRPC_THEMA,Prokaryote,Growth,41.51,Medium,1519,max n_single_mutants; ties lexicographic by assay_id
+UBC9_HUMAN_Weile_2017,UBC9_HUMAN_Weile_2017,UBC9_HUMAN,Human,complementation,55.33,Medium,2563,max n_single_mutants; ties lexicographic by assay_id
+UBE4B_HUMAN_Tsuboyama_2023_3L1X,UBE4B_HUMAN_Tsuboyama_2023_3L1X,UBE4B_HUMAN,Human,cDNA display proteolysis,506.27,High,1118,max n_single_mutants; ties lexicographic by assay_id
+UBE4B_MOUSE_Starita_2013,UBE4B_MOUSE_Starita_2013,UBE4B_MOUSE,Eukaryote,Auto-ubiquitination,0.64,Low,899,max n_single_mutants; ties lexicographic by assay_id
+UBR5_HUMAN_Tsuboyama_2023_1I2T,UBR5_HUMAN_Tsuboyama_2023_1I2T,UBR5_HUMAN,Human,cDNA display proteolysis,17.55,Medium,1094,max n_single_mutants; ties lexicographic by assay_id
+VG08_BPP22_Tsuboyama_2023_2GP8,VG08_BPP22_Tsuboyama_2023_2GP8,VG08_BPP22,Virus,cDNA display proteolysis,1177.87,High,723,max n_single_mutants; ties lexicographic by assay_id
+VILI_CHICK_Tsuboyama_2023_1YU5,VILI_CHICK_Tsuboyama_2023_1YU5,VILI_CHICK,Eukaryote,cDNA display proteolysis,761.62,High,1202,max n_single_mutants; ties lexicographic by assay_id
+VKOR1_HUMAN_Chiasson_2020_activity,VKOR1_HUMAN_Chiasson_2020_abundance,VKOR1_HUMAN,Human,Fluorescence,29.05,Medium,2695,max n_single_mutants; ties lexicographic by assay_id
+VRPI_BPT7_Tsuboyama_2023_2WNM,VRPI_BPT7_Tsuboyama_2023_2WNM,VRPI_BPT7,Virus,cDNA display proteolysis,81.19,Medium,1047,max n_single_mutants; ties lexicographic by assay_id
+YAIA_ECOLI_Tsuboyama_2023_2KVT,YAIA_ECOLI_Tsuboyama_2023_2KVT,YAIA_ECOLI,Prokaryote,cDNA display proteolysis,16.25,Medium,928,max n_single_mutants; ties lexicographic by assay_id
+YAP1_HUMAN_Araya_2012,YAP1_HUMAN_Araya_2012,YAP1_HUMAN,Human,Binding,0.26,Low,362,max n_single_mutants; ties lexicographic by assay_id
+YNZC_BACSU_Tsuboyama_2023_2JVD,YNZC_BACSU_Tsuboyama_2023_2JVD,YNZC_BACSU,Prokaryote,cDNA display proteolysis,40.99,Medium,714,max n_single_mutants; ties lexicographic by assay_id
