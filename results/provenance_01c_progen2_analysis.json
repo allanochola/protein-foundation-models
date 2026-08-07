@@ -1,21 +1,21 @@
 {
   "experiment": "01c_progen2_analysis",
-  "utc": "2026-08-07T03:39:08+00:00",
-  "git_commit": "e042ed0",
-  "python": "3.12.3",
-  "platform": "Linux-6.18.5-fc-v18-x86_64-with-glibc2.39",
-  "device": "cpu (torch not installed)",
+  "utc": "2026-08-07T05:06:16+00:00",
+  "git_commit": "4c34b15",
+  "python": "3.12.13",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+  "device": "cpu (torch 2.11.0+cpu)",
   "seed": 0,
   "packages": {
-    "pandas": "3.0.2",
-    "numpy": "2.4.4",
-    "scipy": "1.17.1",
+    "pandas": "2.2.2",
+    "numpy": "2.0.2",
+    "scipy": "1.16.3",
     "statsmodels": "0.14.6",
-    "transformers": "absent"
+    "transformers": "5.13.1"
   },
   "ladder": "progen2",
   "bootstrap_seed": 0,
   "bootstrap_reps": 2000,
-  "confirmatory_beta": -0.024520647486112206,
+  "confirmatory_beta": -0.024520647486112147,
   "bootstrap_p_negative": 0.9885
 }
