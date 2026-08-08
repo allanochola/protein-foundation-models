@@ -45,8 +45,9 @@ Last updated: end of Experiment 04 (Phase 1).
   assays beta = -0.0180 vs the full-set -0.0153, retention 1.18, same sign —
   PASS. The 16 windowed assays carry none of the interaction (windowed-only
   beta ~ 0, p = 0.84; confound term lp:ld:windowed = +0.021, p = 0.20). Threat 1
-  retired on published scores; Stage 3 re-scoring not triggered. Scope: clears
-  the windowing mechanism, not every size-dependent scoring effect.
+  (ProteinGym long-sequence windowing) retired on published scores; Stage 3
+  re-scoring not triggered. Other hypothetical size-dependent scoring mechanisms
+  were outside the scope of Experiment 04.
   See `experiments/04-scoring-window-fairness/results.md`.
 
 ## What is settled, and what it leaves open
@@ -63,13 +64,19 @@ this clears the windowing mechanism specifically, not every conceivable
 size-dependent scoring effect.)
 
 Still open, and now the whole remaining question:
-1. **Composition vs power for ProGen.** ProteinGym cannot lengthen the ProGen
-   ladders, so 03 could not separate a genuine cross-protein effect from
-   short-ladder low power. ProGen stays negative but never clears 95% on any cut.
+1. **Architecture vs power for ProGen.** Does the ProGen fixed-effects null
+   reflect genuine architecture-specific behaviour, or simply insufficient
+   statistical power from the three-checkpoint ladder? ProteinGym cannot lengthen
+   the ProGen ladders, so 03 could not separate the two. ProGen stays negative
+   but never clears 95% on any cut.
 
 ## Next: Experiment 05
 
-Threat 1 is closed, so power (threat 2) is the whole remaining question. ProGen's
+Threat 1 is closed, so power (threat 2) is the whole remaining question. Unlike
+01–04, 05 is not another artefact-rejection step — it is the first experiment
+whose job is positive discrimination between two live hypotheses
+(architecture-specific behaviour vs insufficient ladder resolution), not the
+removal of a dead one. ProGen's
 depth–scaling signal is between-assay and never clears 95% on any 03 cut, and
 ProteinGym cannot lengthen the ProGen ladders — so the open question is whether a
 genuine cross-protein effect is present but under-powered, or absent. Attack it
