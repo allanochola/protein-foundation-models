@@ -146,40 +146,40 @@ upper segment and full — inject a known within-assay `lp:ld` slope, regenerate
 synthetic Spearman values, refit the FE estimator, and count detections.
 
 Construction, per replicate:
-1. Fit a **residual-source model** on the real ProGen data; keep its fitted
-   values and residuals.
-2. Synthetic outcome = fitted value + `beta_inject * (lp_c * ld_c)` +
-   residual, where `lp_c`, `ld_c` are the centred regressors on the segment being
-   fitted and the residual is **block-resampled by assay** (all sizes of a
-   sampled assay move together) to inherit ProGen's real per-observation noise,
-   heteroskedasticity, and the 3-plus-per-assay correlation. Semi-parametric, not
-   Gaussian — the noise model is empirical.
+1. Compute a **no-interaction base** on the real ProGen data: the fitted values
+   of `rho ~ lp + C(assay)` (assay means plus the real lp main effect, *no*
+   interaction). Separately, compute **noise** as the residuals of a
+   noise-source model (below).
+2. Synthetic outcome = base + `beta_inject * (lp_c * ld_c)` + noise, where
+   `lp_c`, `ld_c` are the centred regressors on the segment being fitted and the
+   noise is **block-resampled by assay** (all sizes of a sampled assay move
+   together) to inherit ProGen's real per-observation noise, heteroskedasticity,
+   and the 3-plus-per-assay correlation. Semi-parametric, not Gaussian — the
+   noise model is empirical. Because the base carries no interaction,
+   `beta_inject` alone sets the total within-assay slope, and `beta_inject = 0`
+   is a genuine null.
 3. Refit `rho ~ lp + lp:ld + C(assay)`, cluster by `UniProt_ID`. Record the
    recovered `lp:ld`, its CI, and whether it is negative with p < 0.05.
 
-**Residual-source model — the contamination guard, run as a bracket.** Residuals
-carry whatever the source model omits. Residualising on `rho ~ C(assay)` leaves
-ProGen's *real* within-assay structure — the lp main effect and, critically, any
-real `lp:ld` — inside the residuals, so block-resampling reinjects it and the
-synthetic slope is `beta_inject` plus ProGen's real (unknown) slope. That is
-exactly the effect being measured, so the power estimate is contaminated by the
-answer. Note that `rho ~ assay + ld` does not help — `ld` is assay-constant and
-fully absorbed by `C(assay)` — and `rho ~ assay + lp` removes only the main
-effect, leaving the interaction. Removing the interaction structure requires a
-source model that contains `lp:ld`. So the bracket is three source models:
+**Noise source — the contamination guard, run as a bracket.** Residuals carry
+whatever the source model omits, and the base already carries the lp main effect,
+so a valid noise source must also remove lp (or lp is double-counted). That rules
+out `rho ~ C(assay)` residuals. Two sources remain, both over the same
+no-interaction base:
 
-- `rho ~ C(assay)` — **primary (preregistered).** Retains real structure as
-  noise, so it *over*-states residual variance and *under*-states power. It is
-  the conservative choice for the risky conclusion: it makes an informed null
-  (H_arch) harder to reach, not easier.
-- `rho ~ lp + C(assay)` — removes the lp main effect.
-- `rho ~ lp + lp:ld + C(assay)` — removes the interaction too; least
-  contaminated, so it *over*-states power. The ceiling of the bracket.
+- `rho ~ lp + C(assay)` residuals — **conservative (headline).** They retain
+  ProGen's real `lp:ld` as noise; block-resampling reinjects that variance around
+  the injected signal, *over*-stating residual variance and *under*-stating
+  power. The conservative choice for the risky conclusion: it makes an informed
+  null (H_arch) harder to reach, not easier.
+- `rho ~ lp + lp:ld + C(assay)` residuals — **ceiling.** Interaction removed,
+  pure noise, so power is *over*-stated. Also the true-null calibration target
+  (injecting 0 here leaves no interaction anywhere).
 
-The primary and the interaction-removed model bound the truth from opposite
-sides. If the verdict (which side of the MDE thresholds below the recovered power
-lands) is stable across the bracket, contamination is immaterial. If it flips,
-the power estimate is fragile and is reported as a bracket, not a point.
+The two bound the truth from opposite sides. If the verdict (which side of the
+MDE thresholds below the recovered power lands) is stable across the bracket,
+contamination is immaterial. If it flips, the power estimate is fragile and is
+reported as a bracket, not a point.
 
 `beta_inject` grid, preregistered: **0** (calibration), **-0.0153** (the ESM-2
 within-assay magnitude), each ProGen's **own confirmatory magnitude** (-0.0245
@@ -187,9 +187,29 @@ ProGen2, -0.0283 ProGen3, as a plausible upper bound), and a sweep -0.004 to
 -0.030 in 0.002 steps for a power curve dense enough to read a minimum detectable
 effect. 2000 reps per cell, seed 0.
 
-Calibration kill criterion: injecting 0 must yield a false-positive rate in
-[0.03, 0.07] under the primary source model. Outside that, the simulator is
-misspecified and B is discarded rather than reported.
+Calibration kill criterion. Detection is one-sided — a hit requires `lp:ld`
+negative *and* p < 0.05 — so the expected null rate is 0.025. Calibration runs on
+the clean-null construction (no-interaction base + interaction-removed noise,
+`beta_inject = 0`) and separates two questions the same rate would otherwise
+conflate:
+
+- **DGP validity.** Score the null draws with the *un-inflated* cluster SE (no
+  small-sample factor). This isolates whether the simulated data is a genuine
+  null, independent of the test's finite-sample correction. Expected 0.025; band
+  [0.015, 0.040]. Outside that at 2000 reps, the DGP is misspecified and B is
+  discarded.
+- **Real-test type-I.** Score the same draws with the small-sample-corrected SE —
+  the exact SE the real analysis and the power curve use. The factor
+  `c = (G/(G-1))·((N-1)/(N-K))` is correct for one-shot inference on data with the
+  217 assay means absorbed, but inside a resampling DGP the empirical spread of
+  `lp:ld` already carries that finite-sample variability, so applying `c` double-
+  counts and the test runs conservative (type-I ≈ 0.01–0.02 on these short
+  within-assay ladders). This is a real, recorded property of the test, not a
+  simulator fault: it means the reported power is if anything a floor and the MDE
+  a mild upper bound on the truly detectable effect. It is not a kill criterion.
+
+Power and MDE below are always scored with the corrected SE, so they describe the
+detectability of the analysis as actually run.
 
 **Reading — bounded, not binary.** The output is not "architecture or power." It
 is the **minimum detectable effect (MDE)**: the smallest `|beta_inject|` the
@@ -292,8 +312,11 @@ breaking:
 
 - Full-ladder scores absent for a size at the pinned commit → that size drops,
   its ladder shortens, recorded "not scored." Analysis proceeds on what loads.
-- Injection calibration outside [0.03, 0.07] false-positive at `beta_inject = 0`
-  → Analysis B discarded, not patched; verdict rests on A and C.
+- DGP-validity calibration outside [0.015, 0.040] at `beta_inject = 0` (clean-null
+  construction scored with the un-inflated cluster SE; one-sided, so 0.025
+  expected) → Analysis B discarded, not patched; verdict rests on A and C. The
+  corrected-SE type-I on the same draws is expected below 0.025 (conservative test)
+  and is recorded, not a kill trigger.
 - ProGen3 provenance unrecoverable or weights unavailable → affects only a
   possible Stage 3 arm; Stage 2 unaffected.
 
@@ -301,11 +324,12 @@ breaking:
 
 - `notebooks/05_architecture_vs_power.py` — Stage 2 A/B/C, parameterised by ladder
 - `results/05_ladder_extent_sensitivity.csv` — A1 extended-segment fits and A2 global + segmented (`lp_lo:ld`, `lp_hi:ld`) fits per model, each with pts, log-span, and the ratios `beta/beta_ESM` and `beta/beta_confirmatory` with bootstrap CIs
-- `results/05_injection_power.csv` — B detection rates per ladder × `beta_inject` × residual-source model, the 0-injection calibration row, and the derived MDE per ladder
+- `results/05_injection_power.csv` — B detection rates per ladder × `beta_inject` × noise source (conservative / clean), and the derived MDE per ladder
+- `results/05_calibration.csv` — clean-null `beta_inject = 0` rates per ladder × segment: `fp_dgp` (un-inflated SE, DGP validity) and `fp_test` (corrected SE, real-test type-I)
 - `results/05_esm2_handicap.csv` — C sub-ladder FE fits with span, point count, and bootstrap interval
-- `results/provenance_05_architecture_vs_power.json` — pinned commit, sizes loaded per model, seed, residual-resampling scheme and source-model bracket
+- `results/provenance_05_architecture_vs_power.json` — pinned commit, sizes loaded per model, seed, noise-resampling scheme, two-source bracket, and calibration scheme
 - `figures/05_lp_ld_by_ladder_length.png` — central figure: within-assay `lp:ld` vs ladder span/points, all three models, ProGen extension trajectory against the ESM-2 anchor
-- `figures/05_injection_power_curve.png` — power vs `beta_inject` per ladder, MDE marked, bracket band across residual-source models
+- `figures/05_injection_power_curve.png` — power vs `beta_inject` per ladder, conservative source
 
 ## What this cannot establish
 
