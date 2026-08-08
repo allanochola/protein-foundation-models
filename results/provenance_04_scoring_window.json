@@ -1,0 +1,14 @@
+{
+  "proteingym_commit": "144fe22b07dfaeec2b366f2346203a9838a55b4c",
+  "window_residues": 1022,
+  "estimator": "rho ~ lp + lp:ld + C(assay); cluster SE by UniProt_ID; upper 650M/3B/15B",
+  "beta_full": -0.015275760172553391,
+  "beta_safe": -0.01796468467803899,
+  "ratio": 1.176025577458129,
+  "same_sign": true,
+  "verdict": "PASS - scoring-protocol (windowing) explanation strongly weakened",
+  "n_assays": 217,
+  "n_context_safe": 201,
+  "n_windowed": 16,
+  "scoring_note": "ESM-2 model_window=1024, size-invariant; long-sequence strategy (wt-marginals+overlapping vs masked-marginals+optimal) still to be pinned from launcher config before Stage 3"
+}
