@@ -1,0 +1,5 @@
+model,segment,fp_dgp,fp_test
+progen2,upper,0.0255,0.0075
+progen2,full,0.0225,0.0095
+progen3,upper,0.028,0.009
+progen3,full,0.0195,0.01

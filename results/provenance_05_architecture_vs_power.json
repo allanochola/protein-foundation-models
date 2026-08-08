@@ -1,0 +1,29 @@
+{
+  "experiment": "05_architecture_vs_power",
+  "utc": "2026-08-08T19:58:58+00:00",
+  "git_commit": "fa67fd5",
+  "python": "3.12.13",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+  "device": "cpu (torch 2.11.0+cpu)",
+  "seed": 0,
+  "packages": {
+    "pandas": "2.2.2",
+    "numpy": "2.0.2",
+    "scipy": "1.16.3",
+    "statsmodels": "0.14.6",
+    "transformers": "5.13.1"
+  },
+  "proteingym_commit": "144fe22b07dfaeec2b366f2346203a9838a55b4c",
+  "reps": 2000,
+  "esm2_full_anchor": "reconstructed",
+  "noise_sources": {
+    "conservative": "rho ~ lp + C(assay)",
+    "clean": "rho ~ lp + lp:ld + C(assay)"
+  },
+  "calibration": "dual: un-inflated SE for DGP validity, corrected SE for real-test type-I",
+  "beta_esm2": -0.01527576017255374,
+  "beta_conf": {
+    "progen2": -0.0245206474861121,
+    "progen3": -0.0282860944558068
+  }
+}
