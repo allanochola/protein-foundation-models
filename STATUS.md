@@ -1,6 +1,6 @@
 # STATUS — where things stand
 
-Last updated: end of Experiment 03.
+Last updated: end of Experiment 04 (Phase 1).
 
 ## Done
 
@@ -36,56 +36,68 @@ Last updated: end of Experiment 03.
   across every robustness cut; precision is what varies.
   See `experiments/03-cross-family-independence/results.md`.
 
-## What 03 settles, and what it leaves open
+- **Experiment 04 — Phase 1** (complete): scoring-protocol fairness, windowing
+  mechanism. Preregistered; PROTOCOL.md frozen before analysis. Reused the
+  Experiment 01 estimator verbatim (`rho ~ lp + lp:ld + C(assay)`, cluster SE by
+  UniProt_ID, upper segment) and changed only the assay set. Only 16/217 assays
+  exceed ProteinGym's 1024-token window (all Low/Medium depth, 0 High); the
+  effect lives on the 92.6% that fit fully in context. On the 201 never-windowed
+  assays beta = -0.0180 vs the full-set -0.0153, retention 1.18, same sign —
+  PASS. The 16 windowed assays carry none of the interaction (windowed-only
+  beta ~ 0, p = 0.84; confound term lp:ld:windowed = +0.021, p = 0.20). Threat 1
+  retired on published scores; Stage 3 re-scoring not triggered. Scope: clears
+  the windowing mechanism, not every size-dependent scoring effect.
+  See `experiments/04-scoring-window-fairness/results.md`.
 
-Settled: the depth–scaling association is not an artefact of assay multiplicity,
-representative choice, weak-signal assays, or simple Low/Medium/High benchmark
-composition. The composition-sensitivity hypothesis for ProGen — the one I would
-have bet on — is contradicted.
+## What is settled, and what it leaves open
+
+Settled through 03: the depth–scaling association is not an artefact of assay
+multiplicity, representative choice, weak-signal assays, or simple Low/Medium/High
+benchmark composition. The composition-sensitivity hypothesis for ProGen — the one
+I would have bet on — is contradicted.
+
+Settled by 04: threat 1 — scoring-protocol fairness — is retired. The ESM-2
+within-assay result holds on the 201 assays the windowing rule never touches, so
+context windowing cannot have manufactured the number the arc rests on. (Caveat:
+this clears the windowing mechanism specifically, not every conceivable
+size-dependent scoring effect.)
 
 Still open, and now the whole remaining question:
-1. **Scoring-protocol fairness.** Every 01/03 number is a *published* ProteinGym
-   score. If context truncation/windowing disadvantages the 15B model on long
-   (often deep-family) proteins, it could manufacture the ESM-2 within-assay
-   result that the entire arc rests on. Untested.
-2. **Composition vs power for ProGen.** ProteinGym cannot lengthen the ProGen
+1. **Composition vs power for ProGen.** ProteinGym cannot lengthen the ProGen
    ladders, so 03 could not separate a genuine cross-protein effect from
    short-ladder low power. ProGen stays negative but never clears 95% on any cut.
 
-## Next: Experiment 04
+## Next: Experiment 05
 
-Target fairness before power. Rationale: threat 1 sits under the ESM-2
-within-assay result everything depends on, so it is higher-leverage than
-threat 2, which only limits what ProGen can tell us. Threat 1 is also partly
-checkable cheaply — from metadata already in the reference file (sequence length
-vs each model's truncation threshold, correlated with MSA depth) — before
-committing to any model re-scoring. Sequence: metadata diagnostic first; if it
-finds the interaction concentrated in truncated / long-sequence assays, then
-controlled re-scoring under a fixed protocol becomes mandatory (that is the
-heavy, GPU/weights step 01's protocol always sequenced last). PROTOCOL FIRST —
-committed before any diagnostic or scoring, as with 01/02/03. Power (threat 2)
-is the natural Experiment 05: longer ladders or independently scored models,
-not more benchmark reweighting.
+Threat 1 is closed, so power (threat 2) is the whole remaining question. ProGen's
+depth–scaling signal is between-assay and never clears 95% on any 03 cut, and
+ProteinGym cannot lengthen the ProGen ladders — so the open question is whether a
+genuine cross-protein effect is present but under-powered, or absent. Attack it
+with longer ladders or independently scored models (fresh inference), not more
+benchmark reweighting. PROTOCOL FIRST — committed before any scoring, as with
+01/02/03/04. The heavy GPU/weights step (running ProGen checkpoints for fresh
+scores) is sequenced last, after any cheap metadata / power diagnostic.
 
 ## Workflow notes for the next session
 
 - Work in the repo directly (Colab clone or local git), not via file deltas —
   file transport was the main friction; Colab sessions also recycle, wiping the
   clone, the git identity, and the PAT, so expect to re-clone, re-set
-  `git config user.name/email`, and re-enter the token when resuming.
-- Push from Python to avoid shell-interpolation of the token:
-  `subprocess.run(["git","push", f"https://{token}@github.com/{REPO}.git","HEAD:main"])`,
-  and scrub the token from any printed error.
+  `git config user.name/email`, and re-enter the token when resuming. Push with a
+  `getpass`-typed token so it stays out of cell output and the notebook file.
 - Verify every push by the DELTA, not just agreement: the new `git rev-parse HEAD`
   must differ from the pre-push hash AND match `git ls-remote origin main`.
   Matching hashes alone can mean "nothing pushed."
 - Analysis inputs pinned to ProteinGym commit 144fe22b07dfaeec2b366f2346203a9838a55b4c.
-  For 04, pin the exact truncation/windowing rule from the ProteinGym scoring
-  code at that commit and record it in provenance — do not assume a context length.
+  04's windowing rule is pinned: ESM-2 `model_window = 1024` (~1022 residues),
+  size-invariant across the ladder; full sequence scored when len <= 1022. Still
+  unpinned (non-blocking — only needed if the 16 windowed assays are ever
+  re-scored): which long-sequence strategy produced the published ESM-2 scores
+  (`wt-marginals`+`overlapping` vs `masked-marginals`+`optimal`).
 
 ## How to resume in a new chat
 
 Open a fresh conversation and say: "Continuing work on
-github.com/allanochola/protein-foundation-models — read STATUS.md, the
-results.md files, and the Experiment 04 protocol if it exists. We're designing
-Experiment 04." The repo carries all context; the chat does not.
+github.com/allanochola/protein-foundation-models — read STATUS.md and the
+results.md files (through Experiment 04). We're designing Experiment 05." The repo
+carries all context; the chat does not.
