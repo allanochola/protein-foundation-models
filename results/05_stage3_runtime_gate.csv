@@ -1,0 +1,2 @@
+repo,total_params,active_params,marg_wall_s,llr_wall_s,marg_vars_per_s,llr_vars_per_s,peak_reserved_gb,peak_allocated_gb,proj_wt_prod_hours,proj_llr_val_hours
+AI4PD/ProtGPT3-112M,109000000.0,34000000.0,3.605565071105957,136.968492269516,153275.0038069579,50.61017964890602,1.948254208,1.46219008,0.04346709002388849,0.03804680340819889
