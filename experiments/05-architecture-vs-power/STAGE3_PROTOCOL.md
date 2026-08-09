@@ -159,9 +159,12 @@ GPU memory, OOM/failure count, projected GPU-hours to score all 217 assays.
 
 **Numeric budget (fixed now, no post-hoc discretion).**
 - 10B peak memory for a single WT-marginal forward (length ≤ 1024) ≤ **40 GB**,
-  decided by the *measured* peak — not by the ~20 GB raw-weight estimate, which
-  ignores kernels, router/expert buffers, logits, attention state, and framework
-  overhead. If the measured peak exceeds 40 GB, the memory gate fails.
+  measured as `torch.cuda.max_memory_reserved()` (the caching allocator's
+  reservation — what actually has to fit the device; `max_memory_allocated()` is
+  reported alongside but does not gate, since it can sit well under the reservation).
+  Decided by the measured peak, not the ~20 GB raw-weight estimate, which ignores
+  kernels, router/expert buffers, logits, attention state, and framework overhead.
+  If measured reserved exceeds 40 GB, the memory gate fails.
 - WT-marginal production projected ≤ **3 A100-hours**. Projection uses 217 assays as
   a deliberately conservative bound though the confirmatory set is the 201
   context-safe assays.
