@@ -21,6 +21,21 @@ AA20 = "ACDEFGHIKLMNPQRSTVWY"
 _MUT = re.compile(r"^([A-Z])(\d+)([A-Z])$")
 
 
+def cap_pair(n, n_cap=2000, seed=0):
+    """Deterministic (cap2, cap4) for a size-n assay. cap2 is the production cap
+    (size min(n_cap, n)); cap4 is the up-to-2x superset used by the gate's
+    cap-stability check. cap2 is nested in cap4 by construction, so production scores
+    exactly the set the gate validated."""
+    rng = np.random.default_rng(seed)
+    big = np.sort(rng.choice(n, size=min(2 * n_cap, n), replace=False))
+    return big[:n_cap], big
+
+
+def cap_indices(n, n_cap=2000, seed=0):
+    """The production cap: first n_cap of the seed-0 2x draw (all of it if n<=n_cap)."""
+    return cap_pair(n, n_cap, seed)[0]
+
+
 def load(repo, dtype=None, device="cuda"):
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -146,6 +161,15 @@ def selftest():
     d_norm = _marginal_from_logp(log_softmax(raw), subs, aid)
     d_raw = sum(raw[p0][aid[to]] - raw[p0][aid[frm]] for p0, frm, to in subs)
     assert abs(d_norm - d_raw) < 1e-10
+
+    # cap: cap2 nested in cap4, deterministic, correct sizes
+    c2, c4 = cap_pair(536962, n_cap=2000, seed=0)
+    assert len(c2) == 2000 and len(c4) == 4000 and set(c2).issubset(set(c4))
+    assert np.array_equal(cap_indices(536962), c2)
+    c2b, c4b = cap_pair(536962, n_cap=2000, seed=0)
+    assert np.array_equal(c2, c2b) and np.array_equal(c4, c4b)          # reproducible
+    small2, small4 = cap_pair(1500, n_cap=2000)
+    assert len(small2) == 1500 and len(small4) == 1500                  # n<=n_cap -> all
     return "protgpt3_scoring selftest: OK"
 
 

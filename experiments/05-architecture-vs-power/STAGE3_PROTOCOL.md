@@ -55,63 +55,63 @@ and active-parameter fits, Stage 3 is inconclusive — not a post-hoc choice.
 
 ## Scoring convention (frozen across all three checkpoints)
 
-ProtGPT3 was never benchmarked on ProteinGym (absent from the v1.3 baseline set;
-the paper is generation-only), so there is no authors' rule to reproduce. We fix
-one rule, identical across the three scales.
+**Revision note.** This section originally set WT-marginal as primary. The runtime
+gate at 112M (recorded in commit `55b0c22`) failed its own agreement criterion:
+variant-level median Spearman(WT-marginal, full-LLR) = 0.50 (threshold 0.90),
+length-dependent (RAF1 648 aa = 0.24, ESTA 212 aa = 0.79). The left-context-only
+estimand diverges from full-LLR, worst on long and multi-mutant assays — WT-marginal
+is not a faithful proxy. Per the protocol's own failure rule, the convention is
+redesigned rather than quietly switched: **full-sequence LLR is now primary**, made
+tractable by a fixed variant cap rather than by the weaker score.
 
-**Primary score — autoregressive wild-type marginal.** For a substitution at
-residue position `p` (1-indexed) changing amino acid `a` → `b`, score it by the
-model's next-token distribution at that position conditioned on the wild-type
-prefix, read from a single forward pass over the wild-type sequence:
+ProtGPT3 was never benchmarked on ProteinGym, so there is no authors' rule to
+reproduce. We fix one rule, identical across the three scales.
 
-    x   = [<|bos|>, r_1, ..., r_L, <|eos|>]     # residue r_i at input index i
-    lo  = model(x).logits                        # lo[t] predicts the token at index t+1
-    z   = log_softmax(lo[p-1])                   # distribution over residue p | WT prefix r_1..r_{p-1}
-    s_p = z[b] - z[a]                            # = lo[p-1][b] - lo[p-1][a]  (normalizer cancels)
-    score(variant) = sum over substituted positions p of s_p     # additive; ONE WT forward per assay
+**Primary score — full-sequence log-likelihood ratio.** For a variant with mutated
+sequence `x_mut` and wild-type `x_wt`:
 
-Per-assay `rho` = Spearman(score, DMS_score) over the assay's variants.
+    x    = [<|bos|>, r_1, ..., r_L, <|eos|>]      # residue r_i at input index i
+    lo   = model(x).logits                         # lo[t] predicts the token at index t+1
+    logP(x) = sum over t=0..N-2 of log_softmax(lo[t])[x_{t+1}]   # bos is context; eos scored
+    score(variant) = logP(x_mut) - logP(x_wt)      # one forward per variant (N->C)
 
-This is a **left-context-only** estimand: each mutated residue is scored given the
-N-terminal prefix, never the C-terminal suffix. That is the precise sense in which
-an AR wild-type marginal differs from an ESM masked marginal, which conditions on
-both flanks. State the consequence plainly: the ProtGPT3 primary score and the
-ESM-2 reference (`-0.0180`, masked-marginal) are **different estimands**, so the
-cross-family comparison tests the *presence, sign, and rough magnitude* of the
-within-assay interaction, not a coefficient match. The within-ProtGPT3 `lp:ld`
-interaction — one estimand applied identically across the ladder — is the primary
-result; ESM-2 is a directional reference only.
+Per-assay `rho` = Spearman(score, DMS_score). This is the exact ProGen2 ProteinGym
+convention; within an assay it ranks variants identically to the mean-reduced or
+WT-subtracted forms. Prepend `<|bos|>`, append `<|eos|>` (the tokenizer omits
+`<|bos|>` even with `add_special_tokens=True`, but the model is BOS-led).
 
-WT-marginal is primary, not full-LLR, for two reasons: it is the only convention
-that makes 217 assays × 3 checkpoints tractable (one forward per assay vs one per
-variant — minutes vs A100-days on the 10B, see the runtime gate), and for the
-mutated-position *difference* the softmax normalizer cancels, so the score is
-invariant to the 20-vs-full-vocabulary choice that full-LLR is sensitive to.
+**Variant cap — what makes full-LLR primary affordable.** Each assay is scored on at
+most **`N_CAP = 2000` variants**, drawn once with a fixed seed (0) and reused
+identically across all three checkpoints. Per-assay Spearman is stable well below an
+assay's full variant count, so the cap barely moves `rho` while collapsing the run
+from ~2.5M forwards to ~400k. The cap is set before scoring and is outcome-blind
+(same variants for every checkpoint). Assays with ≤ `N_CAP` usable variants are
+scored in full. The **cap-stability check** (runtime gate) validates that per-assay
+`rho` at 2000 variants matches `rho` at 4000 on the panel before the cap is trusted.
+
+**Estimand note (unchanged).** Full-LLR conditions each downstream position on the
+mutant prefix, capturing the mutation's effect on the whole sequence likelihood.
+The ESM-2 reference (`-0.0180`, masked-marginal) is still a *different* estimand
+(bidirectional vs causal), so the cross-family comparison tests presence, sign, and
+rough magnitude of the interaction, not a coefficient match. The within-ProtGPT3
+`lp:ld` — one convention across the ladder — is the primary result; ESM-2 is a
+directional reference.
 
 **Mutation universe.** Restrict to the 20 standard amino acids
 (`ACDEFGHIKLMNPQRSTVWY`). A variant is **dropped and recorded "not scored"**, never
 silently mis-tokenized, if any substituted `a` or `b` is non-standard
 (`X/B/Z/U/O/*` or gap), the parsed position lies outside `1..L`, or the stated
-wild-type `a` disagrees with the reference residue at `p`. Assays reduced below a
-usable variant count are recorded and excluded. Per-assay drop counts are reported.
+wild-type `a` disagrees with the reference residue at `p`. The cap is applied after
+this filter (2000 usable variants). Assays below a usable-variant floor are recorded
+and excluded. Per-assay drop counts are reported.
 
-**`<|bos|>` / `<|eos|>` handling.** Prepend `<|bos|>`, append `<|eos|>` — the
-tokenizer omits `<|bos|>` even with `add_special_tokens=True`, but the model is
-BOS-led, and position-0 conditionals are off-distribution without it.
+**WT-marginal is retained in code but demoted** to an optional diagnostic; it is no
+longer part of the confirmatory path. Its gate failure stands as the reason.
 
-**Full-sequence LLR is the locked validation convention — not primary, not
-confirmatory.** score = logP(x_mut), one forward per variant, N→C, `<|bos|>`-led /
-`<|eos|>`-terminated: the exact ProGen2 ProteinGym convention (mean-reduced over
-residue tokens; within an assay this ranks variants identically to the sum or to
-the WT-subtracted ratio). It is computed only on the predetermined validation
-subset (runtime gate), only to test whether WT-marginal faithfully proxies it,
-against a threshold fixed before the panel is run.
-
-**Pre-protocol feasibility runs.** The three assays already scored with full-LLR at
-112M (`A0A192B1T2_9HIV1_Haddox_2018`, `A0A1I9GEU1_NEIME_Kennouche_2019`,
-`A0A247D711_LISMN_Stadelmann_2021`) were pre-freeze feasibility scouting. They are
-recorded as such and are **not** confirmatory evidence; the confirmatory run
-recomputes every assay fresh under the frozen convention.
+**Pre-protocol feasibility runs.** The three assays scored during pre-freeze
+scouting, and the 112M WT-marginal gate run, are feasibility work — **not**
+confirmatory evidence. The confirmatory run recomputes every assay fresh under the
+frozen full-LLR convention.
 
 ## Assay set (locked)
 
@@ -125,9 +125,9 @@ secondary, flagged with the windowing caveat; it is not the primary comparison.
 ## Runtime-feasibility gate (pre-inference, outcome-blind)
 
 A frozen gate, run before any confirmatory scoring. It may inspect wall time,
-throughput, peak memory, failures, and WT-marginal-vs-full-LLR scoring agreement.
-It may **not** compute or inspect any cross-checkpoint `lp:ld` coefficient or MDE.
-Runtime and scoring agreement decide whether to proceed — never the outcome.
+throughput, peak memory, failures, and full-LLR **cap-stability**. It may **not**
+compute or inspect any cross-checkpoint `lp:ld` coefficient or MDE. Runtime and cap
+stability decide whether to proceed — never the outcome.
 
 **Panel (frozen here by geometry, before benchmarking, never by rho).** Five
 context-safe assays selected deterministically from the reference by sequence
@@ -147,45 +147,39 @@ medium = nearest to the median (length, variants) in rank space; long/low-varian
 fewest variants among length ≥ Q75; high-variant = most variants; stress = the fixed
 852-aa Haddox case.
 
-**Full-LLR is subsampled** to a fixed 2,000 variants per panel assay (seed 0) for
-the agreement check — otherwise `SPG1`'s 537k variants alone would blow the budget.
-WT-marginal scores every variant (one forward), so the WT-marginal side is never
-subsampled. `SPG1` is a double-mutant landscape, so its agreement additionally
-probes WT-marginal's additive multi-substitution handling; per-assay agreement is
-reported so this is visible and not buried in the pooled statistic.
+**Cap-stability check (replaces the withdrawn WT-marginal agreement check).** For
+each panel assay with > 4000 usable variants, score full-LLR on a seed-0 draw of
+2000 and of 4000 variants and compare the per-assay `rho`. The `N_CAP = 2000` cap is
+validated only if it reproduces the 4000-variant `rho` closely on every eligible
+panel assay: per-assay `|rho_2000 - rho_4000| ≤ 0.03` **and** they agree in sign.
+This confirms the cap barely moves `rho` before it is trusted for production, and it
+never computes the full-count `rho` on the huge assays. Assays with ≤ 4000 variants
+are scored in full and need no stability test.
 
-**Metrics recorded**, per checkpoint × convention: wall time, variants/sec, peak
-GPU memory, OOM/failure count, projected GPU-hours to score all 217 assays.
+**Metrics recorded**, per checkpoint: wall time, variants/sec, peak GPU memory
+(reserved and allocated), OOM/failure count, and projected full-benchmark
+GPU-hours.
 
 **Numeric budget (fixed now, no post-hoc discretion).**
-- 10B peak memory for a single WT-marginal forward (length ≤ 1024) ≤ **40 GB**,
-  measured as `torch.cuda.max_memory_reserved()` (the caching allocator's
-  reservation — what actually has to fit the device; `max_memory_allocated()` is
-  reported alongside but does not gate, since it can sit well under the reservation).
-  Decided by the measured peak, not the ~20 GB raw-weight estimate, which ignores
-  kernels, router/expert buffers, logits, attention state, and framework overhead.
-  If measured reserved exceeds 40 GB, the memory gate fails.
-- WT-marginal production projected ≤ **3 A100-hours**. Projection uses 217 assays as
-  a deliberately conservative bound though the confirmatory set is the 201
-  context-safe assays.
-- Full-LLR validation subset projected ≤ **8 A100-hours** (112M and 1.3B over the
-  subsampled panel; 10B over only panel assays with ≤ 5,000 variants).
-
-**Agreement criterion for WT-marginal (fixed before the panel).** On the validation
-subset, WT-marginal is retained as primary only if BOTH hold:
-- variant-level: median per-assay Spearman(WT-marginal scores, full-LLR scores)
-  ≥ **0.90**; and
-- assay-level: per-assay `rho`-vs-DMS under the two conventions agrees in sign on
-  **every** subset assay, and Spearman(rho_marg, rho_llr) across the subset ≥ **0.80**.
+- 10B peak memory for full-LLR at the cap (batched forwards, length ≤ 1024) ≤
+  **40 GB**, measured as `torch.cuda.max_memory_reserved()` (the caching
+  allocator's reservation — what actually has to fit the device;
+  `max_memory_allocated()` is reported alongside but does not gate). Decided by the
+  measured peak, not the ~20 GB raw-weight estimate. If measured reserved exceeds
+  40 GB, the memory gate fails.
+- Full-LLR production (3 checkpoints × ≤ 2000 variants × 217 assays, ≈ 400k forwards
+  per checkpoint) projected ≤ **12 A100-hours** total, from the panel's measured
+  variants/sec. 217 is a deliberately conservative bound though the confirmatory set
+  is the 201 context-safe assays. If the measured 10B projection exceeds the budget,
+  that is a FAIL → shrink `N_CAP` or the assay set transparently, never silently.
 
 **Failure behavior (transparent, no silent narrowing).**
 - Any budget exceeded, or the 10B OOMs at 40 GB → record the feasibility failure and
-  **stop**. Stage 3 does not silently drop to a 112M→1.3B ladder — that discards the
-  long-span confound break that is its entire point. Any redesign (80 GB / offload /
-  a different feasible long-span AR family) is a new, transparent decision.
-- Agreement criterion failed → WT-marginal is not a faithful proxy and full-LLR is
-  infeasible on the 10B, so Stage 3 as designed cannot proceed. Record and redesign;
-  do not quietly switch primary conventions.
+  **stop/redesign** transparently. Stage 3 does not silently drop to a 112M→1.3B
+  ladder — that discards the long-span confound break that is its entire point.
+- Cap-stability failed (the 2000-cap `rho` does not reproduce the 4000 `rho`) →
+  raise `N_CAP` and re-gate, or, if that breaks the budget, record and redesign. Do
+  not proceed on an unvalidated cap.
 
 Only after the gate PASSES are the context-safe per-assay `rho` computed and the
 cross-checkpoint FE `lp:ld` / MDE exposed.
@@ -194,21 +188,21 @@ cross-checkpoint FE `lp:ld` / MDE exposed.
 
 `rho ~ lp + lp:ld + C(assay)`, cluster-robust SE by `UniProt_ID`, `lp` and `ld`
 centered on the fitted ladder. `rho` is the per-assay Spearman between the primary
-(WT-marginal) ProtGPT3 scores and DMS measurements. The Stage 2 fast within-estimator
+(full-LLR, capped at N_CAP=2000) ProtGPT3 scores and DMS measurements. The Stage 2 fast within-estimator
 and its statsmodels gate carry over unchanged.
 
 ## Analysis
 
 **A — the interaction.** Single FE fit on the 3-point ProtGPT3 ladder, on the
-primary (WT-marginal) `rho`. Report `lp:ld` with cluster-robust p and an
+primary (full-LLR, capped) `rho`. Report `lp:ld` with cluster-robust p and an
 assay-cluster bootstrap CI, plus the effect-size ratios `beta/beta_ESM` against the
 04 context-safe reference (−0.0180) and the full-217 ESM reference (−0.0153), each
 with a bootstrap CI. Refit on the active-parameter axis as the locked robustness
 (a sign change → inconclusive). Corroborate with the three 2-point sub-ladders
 (112M→1.3B, 1.3B→10B, 112M→10B), bootstrap intervals only, as Stage 2 Analysis C
-handicapped ESM-2 — instability expected and shown, not asserted away. The
-WT-marginal-vs-full-LLR question is settled earlier, at the scoring level, by the
-runtime gate; it is not re-litigated as a coefficient comparison here.
+handicapped ESM-2 — instability expected and shown, not asserted away. The cap's
+fidelity is settled earlier, at the scoring level, by the gate's cap-stability
+check; it is not re-litigated as a coefficient comparison here.
 
 **B — MDE before any null is read.** Reuse the Stage 2 injection machinery verbatim
 (no-interaction base + two-source noise bracket + dual-SE calibration) on ProtGPT3's
@@ -234,7 +228,7 @@ C toward architecture); this bet is the falsifiable one, not the likely one.
 | Null, and MDE ≤ 0.0180 (primary context-safe ESM-2 reference) at ≥ 0.8 power | **Bounded H_arch (narrow)** — the ESM-2 behavior does not reproduce in a long-span AR (MoE) family; a smaller effect is not excluded. State the MDE bound; 0.0153 is the stricter secondary check. |
 | Null, MDE > 0.0180 | **Directional, unresolved** — more AR span did not surface it, but the design still cannot exclude an ESM-sized effect. |
 | Significantly positive | **Architecture-specific divergence** — report as its own finding, not folded into the binary. |
-| Sign flips between the total- and active-parameter axes | **Inconclusive** — parameter-axis robustness disagreement, reported as such. (WT-marginal-vs-full-LLR agreement is settled in the gate, not here.) |
+| Sign flips between the total- and active-parameter axes | **Inconclusive** — parameter-axis robustness disagreement, reported as such. (cap fidelity is settled in the gate, not here.) |
 
 ## Kill criteria (technical scoring sanity, before the FE fit)
 
@@ -278,12 +272,12 @@ are recorded for transparency but are **not** kill criteria — a low or size-or
 
 ## Outputs
 
-- `notebooks/05_stage3_protgpt3_scoring.py` — WT-marginal (primary) + full-LLR scoring
+- `notebooks/05_stage3_protgpt3_scoring.py` — full-LLR (primary, capped) scoring
 - `notebooks/05_stage3_runtime_gate.py` — the outcome-blind feasibility + agreement gate
 - `notebooks/05_stage3_analysis.py` — Stage 2 estimator + injection MDE, run only post-gate
 - `results/05_stage3_runtime_gate.csv` — per checkpoint × convention: wall time, variants/sec, peak GPU memory, failures, projected GPU-hours
-- `results/05_stage3_agreement.csv` — validation-subset variant- and assay-level WT-marginal-vs-full-LLR agreement against the fixed thresholds
-- `results/05_stage3_protgpt3_scores.csv` — per-assay WT-marginal `rho` per checkpoint (all context-safe assays), plus full-LLR `rho` on the validation subset, with drop counts
+- `results/05_stage3_capstability.csv` — panel per-assay `rho` at 2000 vs 4000 variants and the |Δrho| ≤ 0.03 / sign check
+- `results/05_stage3_protgpt3_scores.csv` — per-assay full-LLR (capped) `rho` per checkpoint (all context-safe assays), with drop counts and cap-applied flag
 - `results/05_stage3_interaction.csv` — A: `lp:ld`, ratios, bootstrap CIs, total- and active-parameter axes
 - `results/05_stage3_injection_power.csv`, `results/05_stage3_calibration.csv` — B
 - `results/provenance_05_stage3.json` — ProtGPT3 revisions, exact/active params, scoring convention, gate thresholds and outcome, seed, reps, context-safe assay list
@@ -291,19 +285,20 @@ are recorded for transparency but are **not** kill criteria — a low or size-or
 ## Sequence of work (frozen)
 
 Freeze this protocol → write the gate notebook → run the gate → commit gate outputs
-→ **only if the gate PASSES** on budget and agreement, run the full WT-marginal
-scoring of 112M/1.3B/10B → compute all context-safe `rho` → expose the
+→ **only if the gate PASSES** on budget and cap-stability, run the full full-LLR
+(capped) scoring of 112M/1.3B/10B → compute all context-safe `rho` → expose the
 cross-checkpoint FE `lp:ld` / MDE last. No cross-checkpoint coefficient is computed
 before the gate clears.
 
 ## Compute
 
-WT-marginal (primary) is one forward per assay: ~201 forwards × 3 checkpoints —
-minutes. The 10B is 2.75B active, ~20 GB raw bf16 weights, but whether it fits a
-single 40 GB A100 in practice is a *hypothesis the runtime gate tests* by measured
-peak memory, not a guarantee — kernels, expert/router buffers, logits, and
-attention state add to raw weights. Full-LLR (validation only) is one forward per
-variant, bounded to the subsampled panel and to ≤ 5,000-variant assays on the 10B,
-under the gate's ≤ 8 A100-hour ceiling. The full-benchmark full-LLR run the earlier
-draft assumed (~A100-days, 10B-dominated) is deliberately avoided — that cost is
-what demoted full-LLR from primary to a bounded validation convention.
+Full-LLR (primary) is one forward per variant, but the `N_CAP = 2000` per-assay cap
+holds the confirmatory run to ≈ 400k forwards per checkpoint (≈ 1.2M across the
+ladder) rather than the ~2.5M of the uncapped benchmark. From the 112M gate's
+throughput this projects to a small number of A100-hours; the 10B is the binding
+cost and its projection + reserved-memory fit are what the runtime gate measures on
+an A100 (≤ 40 GB reserved, ≤ 12 A100-hours total). Whether the 10B fits a single
+40 GB device is a *hypothesis the gate tests*, not a guarantee — kernels,
+expert/router buffers, logits, and attention state add to the ~20 GB raw weights.
+The uncapped full-benchmark run (~A100-days) is avoided by the cap, not by a weaker
+score — the WT-marginal proxy was withdrawn after failing its gate (`55b0c22`).
